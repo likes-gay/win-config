@@ -1,0 +1,18 @@
+name: publish-exe
+
+on:
+  push:
+    paths:
+      - '**.ps1'
+
+jobs:
+  ps1-to-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install Ps2exe
+        run: Install-Module ps2exe
+
+      - name: Comple
+        run:  ps2exe .\main.ps1 .\likes-gay-configurator.exe
