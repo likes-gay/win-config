@@ -8,14 +8,18 @@ UnPin-App "Microsoft Edge"
 UnPin-App "Microsoft Store"
 UnPin-App "Mail"
 
+# Turns on dark mode for apps and system
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 -Type Dword -Force
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name SystemUsesLightTheme -Value 0 -Type Dword -Force
+
 # Remove task view
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowTaskViewButton -Value 0 -Force
+Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowTaskViewButton -Value 0 -Force
 
 # Enable the clipboard history
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Clipboard -Name EnableClipboardHistory -Value 1
 
-# Turns on dark mode, for some reasons we create it
-New-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize -Name AppsUseLightTheme -Value 0 -Type Dword -Force
+# Set print screen to open snipping tool
+Set-ItemProperty -Path HKCU:\Control Panel\Keyboard -Name PrintScreenKeyForSnippingEnabled -Value 1 -Type Dword
 
 # Change default browser to Chrome
 $originalFile = "C:\Windows\System32\OEMDefaultAssociations.xml"
@@ -38,5 +42,7 @@ Start-Process "chrome.exe" "https://office.com","--profile-directory="Default""
 # Close the trash browser
 Stop-Process -Name msedge -Force
 
+
+# Easter egg ;)
 Invoke-WebRequest -Uri https://upload.wikimedia.org/wikipedia/commons/1/1f/Joe_Biden_81st_birthday.jpg -OutFile $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
 Start-Process $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
