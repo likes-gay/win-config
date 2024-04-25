@@ -3,7 +3,7 @@ name: publish-exe
 on:
   push:
     paths:
-      - '**.ps1'
+      - "**.ps1"
 
 jobs:
   ps1-to-exe:
