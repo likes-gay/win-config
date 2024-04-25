@@ -2,7 +2,7 @@ name: publish-exe
 
 on:
   workflow_dispatch:
-    
+
   push:
     paths:
       - "**.ps1"
@@ -17,7 +17,7 @@ jobs:
         run:  Install-Module ps2exe -force
 
       - name: Comple
-        run:  ps2exe .\main.ps1 .\likes-gay-configurator.exe
+        run:  Invoke-ps2exe .\main.ps1 .\likes-gay-configurator.exe
       
       - name: Publish
         uses: "marvinpinto/action-automatic-releases@latest"
