@@ -1,6 +1,8 @@
 name: publish-exe
 
 on:
+  workflow_dispatch:
+    
   push:
     paths:
       - "**.ps1"
