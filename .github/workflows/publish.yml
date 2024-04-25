@@ -10,9 +10,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Install Ps2exe
-        run: Install-Module ps2exe -Confirm:$False
+        run:  Install-Module ps2exe -force
 
       - name: Comple
         run:  ps2exe .\main.ps1 .\likes-gay-configurator.exe
+      
+      - name: Publish
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: false
+          files: likes-gay-configurator.exe
