@@ -11,13 +11,15 @@ jobs:
   ps1-to-exe:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install Ps2exe
-        run:  Install-Module ps2exe -force
+        shell: powershell
+        run: Install-Module ps2exe -force
 
       - name: Comple
-        run:  Invoke-ps2exe .\main.ps1 .\likes-gay-configurator.exe
+        shell: powershell
+        run: Invoke-ps2exe .\main.ps1 .\likes-gay-config.exe
       
       - name: Publish
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -25,4 +27,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           automatic_release_tag: latest
           prerelease: false
-          files: likes-gay-configurator.exe
+          files: |
+            likes-gay-config.exe
+            edge_redirect.ini
