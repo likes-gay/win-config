@@ -75,12 +75,12 @@ Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WheelScrollLines" -V
 [WinAPI]::SendMessageTimeout(0xffff, 0x1a, [IntPtr]::Zero, "Environment", 2, 5000, [IntPtr]::Zero)
 
 # Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
-Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile MSEdgeRedirect.exe
-Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile edge_redirect.ini
-Start-Process MSEdgeRedirect.exe -ArgumentList "/silentinstall","edge_redirect.ini" -PassThru
+Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
+Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
+Start-Process MSEdgeRedirect.exe -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
 try {
-	Remove-Item -Path "MSEdgeRedirect.exe"
-	Remove-Item -Path "edge_redirect.ini"
+	Remove-Item -Path ".\MSEdgeRedirect.exe"
+	Remove-Item -Path ".\edge_redirect.ini"
 } catch {
 	Write-Output "Failed to remove files"
 }
