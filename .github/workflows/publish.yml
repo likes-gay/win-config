@@ -10,6 +10,10 @@ on:
 jobs:
   ps1-to-exe:
     runs-on: windows-latest
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v3
 
@@ -20,9 +24,9 @@ jobs:
         run:  Invoke-ps2exe .\main.ps1 .\likes-gay-configurator.exe
       
       - name: Publish
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: softprops/action-gh-release@v2.0.4
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: latest
-          prerelease: false
           files: likes-gay-configurator.exe
+          tag_name: v${{ github.run_number }}
+          prerelease: false
+          name: v${{ github.run_number }}
