@@ -15,22 +15,6 @@ UnPin-App "Microsoft Edge"
 UnPin-App "Microsoft Store"
 UnPin-App "Mail"
 
-function Pin-AppToTaskbar {
-	param (
-		[Parameter(Mandatory=$true)]
-		[string]$appPath
-	)
-
-	$shell = New-Object -ComObject ("Shell.Application")
-	$namespace = $shell.Namespace(0x1a)
-	$item = $shell.Namespace((Split-Path $appPath)).ParseName((Split-Path $appPath -Leaf))
-
-	$verbs = $item.Verbs()
-	$verbs | Where-Object {$_.Name -eq "Pin to Tas&kbar"} | ForEach-Object {$_.DoIt()}
-}
-
-Pin-AppToTaskbar "C:\Program Files\Google\Chrome\Application\chrome.exe"
-
 # Turns on dark mode for apps and system
 $themesPersonalise = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
 Set-ItemProperty -Path $themesPersonalise -Name "AppsUseLightTheme" -Value 0 -Type Dword
@@ -47,7 +31,10 @@ Set-ItemProperty -Path $explorer -Name "HideFileExt" -Value 0
 Set-ItemProperty -Path $explorer -Name "HideIcons" -Value 1
 
 # Enable seconds in clock
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name ShowSecondsInSystemClock -Value 1 -Force
+Set-ItemProperty -Path $explorer -Name "ShowSecondsInSystemClock" -Value 1 -Force
+
+# Enable 12 hour time in clock
+Set-ItemProperty -Path $explorer -Name "UseWin32TrayClockExperience" -Value 0 -Force
 
 # Enable the clipboard history
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Value 1
@@ -77,13 +64,9 @@ Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WheelScrollLines" -V
 # Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
 Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
 Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
-Start-Process MSEdgeRedirect.exe -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
-try {
-	Remove-Item -Path ".\MSEdgeRedirect.exe"
-	Remove-Item -Path ".\edge_redirect.ini"
-} catch {
-	Write-Output "Failed to remove files"
-}
+Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+Remove-Item -Path ".\edge_redirect.ini"
+Remove-Item -Path ".\MSEdgeRedirect.exe"
 
 try {
 	Stop-Process -Name msedge -Force
@@ -97,7 +80,6 @@ try {
 	Write-Output "Microsoft Teams is already shut"
 }
 
-
 Set-Content -Path $originalFile -Value $content
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
@@ -105,10 +87,12 @@ Stop-Process -processName: Explorer # Restart explorer to apply changes that req
 # Open useful tabs
 Start-Process "chrome.exe" "https://www.bbc.co.uk/news"
 Start-Process "chrome.exe" "https://github.com/login"
-Start-Process "chrome.exe" "https://teams.microsoft.com/v2"
 Start-Process "chrome.exe" "https://office.com"
+Start-Process "chrome.exe" "https://teams.microsoft.com/v2" -Wait -PassThru
 
 # Easter egg ;)
-Write-Output "Hello, World!"
+Add-Type -AssemblyName PresentationFramework
 Invoke-WebRequest -Uri https://upload.wikimedia.org/wikipedia/commons/1/1f/Joe_Biden_81st_birthday.jpg -OutFile $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
 Start-Process $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
+
+exit
