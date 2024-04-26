@@ -28,7 +28,7 @@ jobs:
       - name: Publish
         uses: softprops/action-gh-release@v2.0.4
         with:
-          files: likes-gay-configurator.exe
+          files: likes-gay-config.exe
           tag_name: v${{ github.run_number }}
           prerelease: false
           name: v${{ github.run_number }}
