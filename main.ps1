@@ -4,9 +4,10 @@ function UnPin-App { param(
 )
 try {
 	((New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace("&", "") -match "Unpin from taskbar"} | %{$_.DoIt()}
-	return "App "$appname" unpinned from Taskbar"
-} catch {
-	Write-Error "Error Unpinning App! (App-Name correct?)"
+	return "App '$appname' unpinned from Taskbar"
+}
+catch {
+	Write-Error "Error Unpinning App! (Is '$appname' correct?)"
 }
 }
 
@@ -14,19 +15,39 @@ UnPin-App "Microsoft Edge"
 UnPin-App "Microsoft Store"
 UnPin-App "Mail"
 
-# Turns on dark mode for apps and system
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name AppsUseLightTheme -Value 0 -Type Dword
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name SystemUsesLightTheme -Value 0 -Type Dword
+function Pin-AppToTaskbar {
+	param (
+		[Parameter(Mandatory=$true)]
+		[string]$appPath
+	)
 
+	$shell = New-Object -ComObject ("Shell.Application")
+	$namespace = $shell.Namespace(0x1a)
+	$item = $shell.Namespace((Split-Path $appPath)).ParseName((Split-Path $appPath -Leaf))
+
+	$verbs = $item.Verbs()
+	$verbs | Where-Object {$_.Name -eq "Pin to Tas&kbar"} | ForEach-Object {$_.DoIt()}
+}
+
+Pin-AppToTaskbar "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+# Turns on dark mode for apps and system
+$themesPersonalise = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+Set-ItemProperty -Path $themesPersonalise -Name "AppsUseLightTheme" -Value 0 -Type Dword
+Set-ItemProperty -Path $themesPersonalise -Name "SystemUsesLightTheme" -Value 0 -Type Dword
+
+$explorer = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 # Remove task view
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowTaskViewButton" -Value 0
+Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
 
 # Turn on file extensions in File Explorer
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0
+Set-ItemProperty -Path $explorer -Name "HideFileExt" -Value 0
 
 # Hide desktop icons
-Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideIcons" -Value 1
-Stop-Process -processName: Explorer # Restart explorer to apply above two changes
+Set-ItemProperty -Path $explorer -Name "HideIcons" -Value 1
+
+# Enable seconds in clock
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name ShowSecondsInSystemClock -Value 1 -Force
 
 # Enable the clipboard history
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Value 1
@@ -40,11 +61,11 @@ using System;
 using System.Runtime.InteropServices;
 
 public class WinAPI {
-    [DllImport("user32.dll", SetLastError = true)]
-    public static extern IntPtr SendMessageTimeout(IntPtr hWnd, int Msg, IntPtr wParam, string lParam, uint fuFlags, uint uTimeout, IntPtr lpdwResult);
+	[DllImport("user32.dll", SetLastError = true)]
+	public static extern IntPtr SendMessageTimeout(IntPtr hWnd, int Msg, IntPtr wParam, string lParam, uint fuFlags, uint uTimeout, IntPtr lpdwResult);
 
-    [DllImport("user32.dll", SetLastError = true)]
-    public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, uint pvParam, uint fWinIni);
+	[DllImport("user32.dll", SetLastError = true)]
+	public static extern bool SystemParametersInfo(uint uiAction, uint uiParam, uint pvParam, uint fWinIni);
 }
 "@
 
@@ -57,13 +78,29 @@ Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WheelScrollLines" -V
 Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile MSEdgeRedirect.exe
 Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile edge_redirect.ini
 Start-Process MSEdgeRedirect.exe -ArgumentList "/silentinstall","edge_redirect.ini" -PassThru
-Remove-Item -Path "MSEdgeRedirect.exe"
-Remove-Item -Path "edge_redirect.ini"
+try {
+	Remove-Item -Path "MSEdgeRedirect.exe"
+	Remove-Item -Path "edge_redirect.ini"
+} catch {
+	Write-Output "Failed to remove files"
+}
 
-Stop-Process -Name msedge -Force # Close the trash browser :(
-Stop-Process -Name Teams -Force
+try {
+	Stop-Process -Name msedge -Force
+} catch {
+	Write-Output "Microsoft Edge is already shut"
+}
+
+try {
+	Stop-Process -Name Teams -Force
+} catch {
+	Write-Output "Microsoft Teams is already shut"
+}
+
 
 Set-Content -Path $originalFile -Value $content
+
+Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
 
 # Open useful tabs
 Start-Process "chrome.exe" "https://www.bbc.co.uk/news"
@@ -72,5 +109,6 @@ Start-Process "chrome.exe" "https://teams.microsoft.com/v2"
 Start-Process "chrome.exe" "https://office.com"
 
 # Easter egg ;)
+Write-Output "Hello, World!"
 Invoke-WebRequest -Uri https://upload.wikimedia.org/wikipedia/commons/1/1f/Joe_Biden_81st_birthday.jpg -OutFile $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
 Start-Process $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
