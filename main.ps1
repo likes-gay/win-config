@@ -12,13 +12,13 @@ catch {
 }
 
 # Override for the confirm function
-$confirmOverride = false
+$confirmOverride = $false
 
 function Confirmation{
 	param ([string]$text)
 
 	if ($confirmOverride) {
-		return true
+		return $true
  	}
 
 	$option = (Read-Host $text "[y/n]").ToLower()
@@ -31,7 +31,7 @@ function Confirmation{
 
 # Option to accept all the options
 if (Confirmation "Apply all options") {
-	$confirmOverride = true
+	$confirmOverride = $true
 }
 
 # Unpin unused apps from the taskbar
