@@ -91,7 +91,7 @@ Start-Process "chrome.exe" "https://office.com"
 Start-Process "chrome.exe" "https://teams.microsoft.com/v2" -Wait -PassThru
 
 # Easter egg ;)
-$images = (Invoke-WebRequest 'https://pastebin.com/raw/xMTDjnSk').Content.Split([Environment]::NewLine)
+$images = (Invoke-WebRequest "https://pastebin.com/raw/xMTDjnSk").Content.Split([Environment]::NewLine)
 
 # Create folder to store downloaded images in to prevent clutter.
 $downloadPath = $env:USERPROFILE + "\Downloads\likes-gay-images"
