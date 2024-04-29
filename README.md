@@ -16,7 +16,7 @@ Quickly configure windows with the objectively best settings
 * Close Edge (opened by default)
 * Close Teams (opened by default)
 * Open useful tabs
-* Funny Joe Biden
+* Funny Joe Biden and more!
 
 # To run
 

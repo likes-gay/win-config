@@ -91,7 +91,22 @@ Start-Process "chrome.exe" "https://office.com"
 Start-Process "chrome.exe" "https://teams.microsoft.com/v2" -Wait -PassThru
 
 # Easter egg ;)
-Invoke-WebRequest -Uri https://upload.wikimedia.org/wikipedia/commons/1/1f/Joe_Biden_81st_birthday.jpg -OutFile $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
-Start-Process $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
+$images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
+
+# Create folder to store downloaded images in to prevent clutter.
+$downloadPath = $env:USERPROFILE + "\Downloads\likes-gay-images"
+If (!(test-path $downloadPath)) {
+    New-Item -ItemType Directory -Path $downloadPath
+}
+
+foreach ($i in $images) {
+    # Get the name of the image from the URL
+    # Windows will not open images in the photo viewer unless they have a file extension.
+    $imageName = $i.split("/")[$i.split("/").Count - 1]
+
+    # Download and open the image
+    Invoke-WebRequest -Uri $i -OutFile $downloadPath\$imageName
+    Start-Process $downloadPath\$imageName
+}
 
 exit
