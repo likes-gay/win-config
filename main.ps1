@@ -17,7 +17,7 @@ $confirmOverride = false
 function Confirmation{
 	param ([string]$text)
 
-	if ($confirmationOverride) {
+	if ($confirmOverride) {
 		return true
  	}
 
