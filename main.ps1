@@ -11,39 +11,79 @@ catch {
 }
 }
 
-UnPin-App "Microsoft Edge"
-UnPin-App "Microsoft Store"
-UnPin-App "Mail"
+# Override for the confirm function
+$confirmOverride = false
+
+function Confirmation{
+	param ([string]$text)
+
+	if ($confirmOverride) {
+		return true
+ 	}
+
+	$option = Read-Host $text "[y/n]"
+	return $option -eq "y"
+}
+
+# Option to accept all the options
+if (Confirmation "Apply all options") {
+	$confirmOverride = true
+}
+
+# Unpin unused apps from the taskbar
+if (Confirmation "Unpin unused apps") {
+	UnPin-App "Microsoft Edge"
+	UnPin-App "Microsoft Store"
+	UnPin-App "Mail"
+}
 
 # Turns on dark mode for apps and system
-$themesPersonalise = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
-Set-ItemProperty -Path $themesPersonalise -Name "AppsUseLightTheme" -Value 0 -Type Dword
-Set-ItemProperty -Path $themesPersonalise -Name "SystemUsesLightTheme" -Value 0 -Type Dword
+if (Confirmation "Turn on dark mode for apps and system") {
+	$themesPersonalise = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+	Set-ItemProperty -Path $themesPersonalise -Name "AppsUseLightTheme" -Value 0 -Type Dword
+	Set-ItemProperty -Path $themesPersonalise -Name "SystemUsesLightTheme" -Value 0 -Type Dword
+}
 
 $explorer = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+
 # Remove task view
-Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
+if (Confirmation "Remove task view") {
+	Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
+}
 
 # Turn on file extensions in File Explorer
-Set-ItemProperty -Path $explorer -Name "HideFileExt" -Value 0
+if (Confirmation "Turn on file extensions in File Explorer") {
+	Set-ItemProperty -Path $explorer -Name "HideFileExt" -Value 0
+}
 
 # Hide desktop icons
-Set-ItemProperty -Path $explorer -Name "HideIcons" -Value 1
+if (Confirmation "Hide desktop icons") {
+	Set-ItemProperty -Path $explorer -Name "HideIcons" -Value 1
+}
 
 # Enable seconds in clock
-Set-ItemProperty -Path $explorer -Name "ShowSecondsInSystemClock" -Value 1 -Force
+if (Confirmation "Enable seconds on clock") {
+	Set-ItemProperty -Path $explorer -Name "ShowSecondsInSystemClock" -Value 1 -Force
+}
 
 # Enable 12 hour time in clock
-Set-ItemProperty -Path $explorer -Name "UseWin32TrayClockExperience" -Value 0 -Force
+if (Confirmation "Enable 12 hour time in clock") {
+	Set-ItemProperty -Path $explorer -Name "UseWin32TrayClockExperience" -Value 0 -Force
+}
 
 # Enable the clipboard history
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Value 1
+if (Confirmation "Enable clipboard history") {
+	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Value 1
+}
 
 # Set print screen to open snipping tool
-Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "PrintScreenKeyForSnippingEnabled" -Value 1 -Type Dword
+if (Confirmation "Rebind print screen to open snipping tool") {
+	Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "PrintScreenKeyForSnippingEnabled" -Value 1 -Type Dword
+}
 
 # Set scroll lines to 7
-Add-Type -TypeDefinition @"
+if (Confirmation "Set scroll lines to 7") {
+	Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
 
@@ -56,17 +96,20 @@ public class WinAPI {
 }
 "@
 
-$scrollSpeed = 7
-Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WheelScrollLines" -Value $scrollSpeed
-[WinAPI]::SystemParametersInfo(0x0069, $scrollSpeed, 0, 2)
-[WinAPI]::SendMessageTimeout(0xffff, 0x1a, [IntPtr]::Zero, "Environment", 2, 5000, [IntPtr]::Zero)
+	$scrollSpeed = 7
+	Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WheelScrollLines" -Value $scrollSpeed
+	[WinAPI]::SystemParametersInfo(0x0069, $scrollSpeed, 0, 2)
+	[WinAPI]::SendMessageTimeout(0xffff, 0x1a, [IntPtr]::Zero, "Environment", 2, 5000, [IntPtr]::Zero)
+}
 
 # Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
-Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
-Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
-Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
-Remove-Item -Path ".\edge_redirect.ini"
-Remove-Item -Path ".\MSEdgeRedirect.exe"
+if (Confirmation "Install and configure MSEdgeRedirect") {
+	Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
+	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
+	Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+	Remove-Item -Path ".\edge_redirect.ini"
+	Remove-Item -Path ".\MSEdgeRedirect.exe"
+}
 
 try {
 	Stop-Process -Name msedge -Force
@@ -96,17 +139,17 @@ $images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-co
 # Create folder to store downloaded images in to prevent clutter.
 $downloadPath = $env:USERPROFILE + "\Downloads\likes-gay-images"
 If (!(test-path $downloadPath)) {
-    New-Item -ItemType Directory -Path $downloadPath
+	New-Item -ItemType Directory -Path $downloadPath
 }
 
 foreach ($i in $images) {
-    # Get the name of the image from the URL
-    # Windows will not open images in the photo viewer unless they have a file extension.
-    $imageName = $i.split("/")[$i.split("/").Count - 1]
+	# Get the name of the image from the URL
+	# Windows will not open images in the photo viewer unless they have a file extension.
+	$imageName = $i.split("/")[$i.split("/").Count - 1]
 
-    # Download and open the image
-    Invoke-WebRequest -Uri $i -OutFile $downloadPath\$imageName
-    Start-Process $downloadPath\$imageName
+	# Download and open the image
+	Invoke-WebRequest -Uri $i -OutFile $downloadPath\$imageName
+	Start-Process $downloadPath\$imageName
 }
 
 exit
