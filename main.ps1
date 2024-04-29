@@ -17,12 +17,16 @@ $confirmOverride = false
 function Confirmation{
 	param ([string]$text)
 
-	if ($confirmOverride) {
+	if ($confirmationOverride) {
 		return true
  	}
 
 	$option = Read-Host $text "[y/n]"
-	return $option -eq "y"
+	if (!(($option -eq "y") -Or ($option -eq "yes")) -And !(($option -eq "n") -Or ($option -eq "no"))) {
+		return Confirmation $text
+	}
+
+    	return ($option -eq "y") -Or ($option -eq "yes")
 }
 
 # Option to accept all the options
