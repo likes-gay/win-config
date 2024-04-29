@@ -91,7 +91,6 @@ Start-Process "chrome.exe" "https://office.com"
 Start-Process "chrome.exe" "https://teams.microsoft.com/v2" -Wait -PassThru
 
 # Easter egg ;)
-Add-Type -AssemblyName PresentationFramework
 Invoke-WebRequest -Uri https://upload.wikimedia.org/wikipedia/commons/1/1f/Joe_Biden_81st_birthday.jpg -OutFile $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
 Start-Process $env:USERPROFILE\Downloads\Joe_Biden_81st_birthday.jpg
 
