@@ -1,5 +1,5 @@
 # Win Config
-Quickly configure windows with the objectively best settings
+Quickly configure Windows with the objectively best settings
 
 # The options
 * Unpin unused apps
@@ -26,4 +26,4 @@ curl -L -o likes-gay-config.exe https://github.com/likes-gay/win-config/releases
 ```
 
 ## Using a Rubber Ducky (badusb) to run the script
-Upload the [``payload.dd``](https://github.com/likes-gay/win-config/blob/main/payload.dd) to your usb
+Upload the [`payload.dd`](https://github.com/likes-gay/win-config/blob/main/payload.dd) to your USB
