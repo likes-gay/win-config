@@ -21,7 +21,7 @@ function Confirmation{
 		return true
  	}
 
-	$option = Read-Host $text "[y/n]"
+	$option = (Read-Host $text "[y/n]").ToLower()
 	if (!(($option -eq "y") -Or ($option -eq "yes")) -And !(($option -eq "n") -Or ($option -eq "no"))) {
 		return Confirmation $text
 	}
