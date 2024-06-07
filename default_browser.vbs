@@ -1,5 +1,5 @@
 Set WshShell = WScript.CreateObject("WScript.Shell")
-WshShell.Run "%windir%\system32\control.exe /name Microsoft.DefaultPrograms /page pageDefaultProgram\pageAdvancedSettings?pszAppName=MSEdgeHTM"
+WshShell.Run "%windir%\system32\control.exe /name Microsoft.DefaultPrograms /page pageDefaultProgram"
 WScript.Sleep 5000
 WshShell.SendKeys "{TAB}"
 WScript.Sleep 100
