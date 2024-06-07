@@ -106,6 +106,11 @@ public class WinAPI {
 	[WinAPI]::SendMessageTimeout(0xffff, 0x1a, [IntPtr]::Zero, "Environment", 2, 5000, [IntPtr]::Zero)
 }
 
+# Set default browser to Chrome
+Invoke-WebRequest  "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
+Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
+Remove-Item -Path ".\default_browser.vbs"
+
 # Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
 if (Confirmation "Install and configure MSEdgeRedirect") {
 	Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
