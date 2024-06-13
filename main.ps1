@@ -116,6 +116,14 @@ public class WinAPI {
 	[WinAPI]::SendMessageTimeout(0xffff, 0x1a, [IntPtr]::Zero, "Environment", 2, 5000, [IntPtr]::Zero)
 }
 
+# Turn on "Live Caption" in Google Chrome
+if (Confirmation "Turn on 'Live Caption' in Google Chrome") {
+	$originalFile = "$env:LocalAppData\Google\Chrome\User Data\Default\Preferences"
+	$content = Get-Content -Path $originalFile | ConvertFrom-Json
+	$content.accessibility.captions.live_caption_enabled = "true"
+	$content | ConvertTo-Json -Compress | Set-Content -Path $originalFile
+}
+
 # Set default browser to Chrome
 Invoke-WebRequest  "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
 Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
