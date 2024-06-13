@@ -22,7 +22,13 @@ try {
 }
 
 # Parse config file
-$configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
+try {
+    $configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
+    
+} catch {
+    Write-Error 'Malformed config file'
+    Exit
+}
 
 # Unpin unused apps from the taskbar
 if ($configFile.'Unpin-apps') {
