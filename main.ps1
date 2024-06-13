@@ -34,6 +34,16 @@ if (Confirmation "Apply all options") {
 	$confirmOverride = $true
 }
 
+# Download user config file
+try {
+    $configFileUrl = "https://github.com/likes-gay/win-config/blob/main/configs/{0}.xml"-f $Env:UserName
+    Invoke-WebRequest $configFileUrl -outfile "config.xml"
+
+} catch {
+    Write 'No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/'
+    Exit
+}
+
 # Unpin unused apps from the taskbar
 if (Confirmation "Unpin unused apps") {
 	UnPin-App "Microsoft Edge"
