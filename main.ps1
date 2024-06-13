@@ -126,12 +126,6 @@ try {
 	Write-Output "Microsoft Edge is already shut"
 }
 
-try {
-	Stop-Process -Name Teams -Force
-} catch {
-	Write-Output "Microsoft Teams is already shut"
-}
-
 Set-Content -Path $originalFile -Value $content
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
