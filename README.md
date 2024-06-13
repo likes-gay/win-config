@@ -12,9 +12,9 @@ Quickly configure Windows with the objectively best settings
 * Enable clipboard history
 * Set print screen key to open snipping tool
 * Set scroll line speed to 7
+* Set default browser to Chrome (uses GUI automation)
 * Install and configure MSEdgeRedirect
 * Close Edge (opened by default)
-* Close Teams (opened by default)
 * Open useful tabs
 * Funny Joe Biden and more!
 
