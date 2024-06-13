@@ -13,7 +13,7 @@ catch {
 
 # Download user config file
 try {
-    $configFileUrl = "https://github.com/likes-gay/win-config/blob/main/configs/{0}.json"-f $Env:UserName
+    $configFileUrl = "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/{0}.json"-f $Env:UserName
     Invoke-WebRequest $configFileUrl -outfile "config.json"
 
 } catch {
