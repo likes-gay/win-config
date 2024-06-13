@@ -2,32 +2,31 @@
 function UnPin-App { param(
 	[string]$appname
 )
-try {
-	((New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace("&", "") -match "Unpin from taskbar"} | %{$_.DoIt()}
-	return "App '$appname' unpinned from Taskbar"
-}
-catch {
-	Write-Error "Error Unpinning App! (Is '$appname' correct?)"
-}
+	try {
+		((New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace("&", "") -match "Unpin from taskbar"} | %{$_.DoIt()}
+		return "App '$appname' unpinned from Taskbar"
+	} catch {
+		Write-Error "Error Unpinning App! (Is '$appname' correct?)"
+	}
 }
 
 # Download user config file
 try {
-    $configFileUrl = "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/{0}.json"-f $Env:UserName
-    Invoke-WebRequest $configFileUrl -outfile "config.json"
+	$configFileUrl = "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/{0}.json"-f $Env:UserName
+	Invoke-WebRequest $configFileUrl -outfile "config.json"
 
 } catch {
-    Write 'No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/'
-    Exit
+	Write 'No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/'
+	Exit
 }
 
 # Parse config file
 try {
-    $configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
+	$configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
     
 } catch {
-    Write-Error 'Malformed config file'
-    Exit
+	Write-Error 'Malformed config file'
+	Exit
 }
 
 # Unpin unused apps from the taskbar
@@ -108,7 +107,7 @@ if ($configFile.'Enable-live-caption-chrome') {
 	$content = Get-Content -Path $originalFile | ConvertFrom-Json
 	$content.accessibility.captions.live_caption_enabled = "true"
 	$content | ConvertTo-Json -Compress | Set-Content -Path $originalFile
-    Set-Content -Path $originalFile -Value $content
+	Set-Content -Path $originalFile -Value $content
 }
 
 # Set default browser to Chrome
