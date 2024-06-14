@@ -170,7 +170,7 @@ if ($configFile."Open-tabs") {
 		$i -lt $configFile."Open-tabs".Count
 		$i++
 		) {
-			Start-Process "chrome.exe" $configFile."Open-tabs"[$i]
+			Start-Process $configFile."Open-tabs"[$i]
 		}
 }
 
@@ -181,6 +181,10 @@ if ($configFile."Accent-colour") {
 }
 
 	$ColorValue = $configFile."Accent-colour".Split(" ") | ForEach-Object { "0x$_" }
+
+if ($configFile."Accent-colour-on-task-bar") {
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "ColorPrevalence" -Value 1
+}
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
 
