@@ -16,7 +16,7 @@ try {
 	Invoke-WebRequest $configFileUrl -outfile "config.json"
 
 } catch {
-	Write "No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/"
+	Write-Output "No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/"
 	Exit
 }
 
