@@ -12,9 +12,7 @@ function UnPin-App { param(
 
 # Download user config file
 try {
-	$configFileUrl = "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/{0}.json"-f $Env:UserName
-	Invoke-WebRequest $configFileUrl -outfile "config.json"
-
+	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/$Env:UserName.json" -outfile "config.json"
 } catch {
 	Write-Output "No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/"
 	Exit
