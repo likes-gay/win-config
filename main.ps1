@@ -108,9 +108,14 @@ public class WinAPI {
 if ($configFile."Enable-live-caption-chrome") {
 	$originalFile = "$env:LocalAppData\Google\Chrome\User Data\Default\Preferences"
 	$content = Get-Content -Path $originalFile | ConvertFrom-Json
-	$content.accessibility.captions.live_caption_enabled = "true"
+
+	$content | Add-Member -MemberType NoteProperty -Name "accessibility" -Value @{
+		captions = @{
+			live_caption_enabled = $true
+		}
+	} -Force
+
 	$content | ConvertTo-Json -Compress | Set-Content -Path $originalFile
-	Set-Content -Path $originalFile -Value $content
 }
 
 # Set default browser to Chrome
