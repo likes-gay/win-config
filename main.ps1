@@ -105,7 +105,7 @@ if ($configFile."Print-scrn-snipping-tool") {
 	Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "PrintScreenKeyForSnippingEnabled" -Value 1 -Type Dword
 }
 
-# Set scroll lines to 7
+# Set scroll lines to user defined
 if ($configFile."Set-scroll-lines") {
     $scrollSpeed = $configFile."Set-scroll-lines"
 	Add-Type -TypeDefinition @"
@@ -165,26 +165,28 @@ if ($configFile."Close-edge"){
     }
 }
 
-
-Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
-
+# Open useful tabs
 if ($configFile."Open-tabs") {
-    # Open useful tabs
     for (
-        $i = 0
+		$i = 0
         $i -lt $configFile."Open-tabs".Count
         $i++    
-    ){
-        Start-Process $configFile."Open-tabs"[$i]
-    }
-}
+		){
+			Start-Process $configFile."Open-tabs"[$i]
+			}
+			}
 
+# Set accent colour from config file
 if($configFile.'Accent-colour'){
 	$ColorValue = $configFile.'Accent-colour'.Split(' ') | ForEach-Object { "0x$_" }
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Value ([byte[]]$ColorValue)
 }
+				
+
+Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
+
+# Easter egg ;)
 if ($configFile.'Funny-joe-biden'){
-    # Easter egg ;)
     $images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
 
 
@@ -204,5 +206,4 @@ if ($configFile.'Funny-joe-biden'){
 	    Start-Process $downloadPath\$imageName
     }
 }
-
 Exit
