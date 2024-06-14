@@ -157,7 +157,11 @@ if ($configFile."Open-tabs") {
     }
 }
 
-if ($configFile."Funny-joe-biden") {
+if($configFile.'Accent-colour'){
+	$ColorValue = $AccentColor.Split(' ') | ForEach-Object { "0x$_" }
+	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Value ([byte[]]$ColorValue)
+}
+if ($configFile.'Funny-joe-biden'){
     # Easter egg ;)
     $images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
 
