@@ -16,7 +16,7 @@ try {
 	Invoke-WebRequest $configFileUrl -outfile "config.json"
 
 } catch {
-	Write 'No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/'
+	Write "No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/"
 	Exit
 }
 
@@ -25,7 +25,7 @@ try {
 	$configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
     
 } catch {
-	Write-Error 'Malformed config file'
+	Write-Error "Malformed config file"
 	Exit
 }
 
@@ -33,14 +33,14 @@ try {
 Remove-Item -Path .\config.json
 
 # Unpin unused apps from the taskbar
-if ($configFile.'Unpin-apps') {
+if ($configFile."Unpin-apps") {
 	UnPin-App "Microsoft Edge"
 	UnPin-App "Microsoft Store"
 	UnPin-App "Mail"
 }
 
 # Turns on dark mode for apps and system
-if ($configFile.'Dark-mode') {
+if ($configFile."Dark-mode") {
 	$themesPersonalise = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize"
 	Set-ItemProperty -Path $themesPersonalise -Name "AppsUseLightTheme" -Value 0 -Type Dword
 	Set-ItemProperty -Path $themesPersonalise -Name "SystemUsesLightTheme" -Value 0 -Type Dword
@@ -49,43 +49,43 @@ if ($configFile.'Dark-mode') {
 $explorer = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
 # Remove task view
-if ($configFile.'Remove-task-view') {
+if ($configFile."Remove-task-view") {
 	Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
 }
 
 # Turn on file extensions in File Explorer
-if ($configFile.'File-extentions') {
+if ($configFile."File-extentions") {
 	Set-ItemProperty -Path $explorer -Name "HideFileExt" -Value 0
 }
 
 # Hide desktop icons
-if ($configFile.'Remove-desktop-icons') {
+if ($configFile."Remove-desktop-icons") {
 	Set-ItemProperty -Path $explorer -Name "HideIcons" -Value 1
 }
 
 # Enable seconds in clock
-if ($configFile.'Seconds-in-clock') {
+if ($configFile."Seconds-in-clock") {
 	Set-ItemProperty -Path $explorer -Name "ShowSecondsInSystemClock" -Value 1 -Force
 }
 
 # Enable 12 hour time in clock
-if ($configFile.'12-hr-clock') {
+if ($configFile."12-hr-clock") {
 	Set-ItemProperty -Path $explorer -Name "UseWin32TrayClockExperience" -Value 0 -Force
 }
 
 # Enable the clipboard history
-if ($configFile.'clipboard-history') {
+if ($configFile."clipboard-history") {
 	Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Value 1
 }
 
 # Set print screen to open snipping tool
-if ($configFile.'Print-scrn-snipping-tool') {
+if ($configFile."Print-scrn-snipping-tool") {
 	Set-ItemProperty -Path "HKCU:\Control Panel\Keyboard" -Name "PrintScreenKeyForSnippingEnabled" -Value 1 -Type Dword
 }
 
 # Set scroll lines to 7
-if ($configFile.'Set-scroll-lines') {
-    $scrollSpeed = $configFile.'Set-scroll-lines'
+if ($configFile."Set-scroll-lines") {
+    $scrollSpeed = $configFile."Set-scroll-lines"
 	Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
@@ -105,7 +105,7 @@ public class WinAPI {
 }
 
 # Turn on "Live Caption" in Google Chrome
-if ($configFile.'Enable-live-caption-chrome') {
+if ($configFile."Enable-live-caption-chrome") {
 	$originalFile = "$env:LocalAppData\Google\Chrome\User Data\Default\Preferences"
 	$content = Get-Content -Path $originalFile | ConvertFrom-Json
 	$content.accessibility.captions.live_caption_enabled = "true"
@@ -114,13 +114,13 @@ if ($configFile.'Enable-live-caption-chrome') {
 }
 
 # Set default browser to Chrome
-if ($configFile.'Default-browser-chrome') {
+if ($configFile."Default-browser-chrome") {
     Invoke-WebRequest  "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
     Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
     Remove-Item -Path ".\default_browser.vbs"
 
     # Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
-    if ($configFile.'Setup-edge-redirect') {
+    if ($configFile."Setup-edge-redirect") {
 	    Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
 	    Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
 	    Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
@@ -130,7 +130,7 @@ if ($configFile.'Default-browser-chrome') {
 }
 
 
-if ($configFile.'Close-edge'){
+if ($configFile."Close-edge"){
     try {
 	    Stop-Process -Name msedge -Force
     } catch {
@@ -141,18 +141,18 @@ if ($configFile.'Close-edge'){
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
 
-if ($configFile.'Open-tabs') {
+if ($configFile."Open-tabs") {
     # Open useful tabs
     for (
         $i = 0
-        $i -lt $configFile.'Open-tabs'.Count
+        $i -lt $configFile."Open-tabs".Count
         $i++    
     ){
-        Start-Process "chrome.exe" $configFile.'Open-tabs'[$i]
+        Start-Process $configFile."Open-tabs"[$i]
     }
 }
 
-if ($configFile.'Funny-joe-biden'){
+if ($configFile."Funny-joe-biden") {
     # Easter egg ;)
     $images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
 
@@ -173,4 +173,5 @@ if ($configFile.'Funny-joe-biden'){
 	    Start-Process $downloadPath\$imageName
     }
 }
-exit
+
+Exit
