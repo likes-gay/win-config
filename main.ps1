@@ -23,7 +23,7 @@ try {
 # Parse config file
 try {
 	$configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
-    
+	
 } catch {
 	Write-Error "Malformed config file"
 	Exit
@@ -60,18 +60,18 @@ if ($configFile."Remove-task-view") {
 
 # Set task bar search type
 if ($configFile.'Task-bar-search-mode') {
-    $taskBarSearchModeRegKey = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
-    if ($configFile.'Task-bar-search-mode' -eq "Hidden"){
-        Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 0
-    }
-    
-    if ($configFile.'Task-bar-search-mode' -eq "Icon"){
-        Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 1
-    }
-    
-    if ($configFile.'Task-bar-search-mode' -eq "Bar"){
-        Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 2
-    }
+	$taskBarSearchModeRegKey = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
+	if ($configFile.'Task-bar-search-mode' -eq "Hidden") {
+		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 0
+	}
+	
+	if ($configFile.'Task-bar-search-mode' -eq "Icon") {
+		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 1
+	}
+	
+	if ($configFile.'Task-bar-search-mode' -eq "Bar") {
+		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 2
+	}
 
 }
 
@@ -107,7 +107,7 @@ if ($configFile."Print-scrn-snipping-tool") {
 
 # Set scroll lines to user defined
 if ($configFile."Set-scroll-lines") {
-    $scrollSpeed = $configFile."Set-scroll-lines"
+	$scrollSpeed = $configFile."Set-scroll-lines"
 	Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
@@ -142,68 +142,70 @@ if ($configFile."Enable-live-caption-chrome") {
 
 # Set default browser to Chrome
 if ($configFile."Default-browser-chrome") {
-    Invoke-WebRequest  "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
-    Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
-    Remove-Item -Path ".\default_browser.vbs"
+	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
+	Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
+	Remove-Item -Path ".\default_browser.vbs"
 
-    # Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
-    if ($configFile."Setup-edge-redirect") {
-	    Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
-	    Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
-	    Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
-	    Remove-Item -Path ".\edge_redirect.ini"
-	    Remove-Item -Path ".\MSEdgeRedirect.exe"
-    }
+	# Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
+	if ($configFile."Setup-edge-redirect") {
+		Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
+		Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
+		Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+		Remove-Item -Path ".\edge_redirect.ini"
+		Remove-Item -Path ".\MSEdgeRedirect.exe"
+	}
 }
 
 
-if ($configFile."Close-edge"){
-    try {
-	    Stop-Process -Name msedge -Force
-    } catch {
-	    Write-Output "Microsoft Edge is already shut"
-    }
+if ($configFile."Close-edge") {
+	try {
+		Stop-Process -Name msedge -Force
+	} catch {
+		Write-Output "Microsoft Edge is already shut"
+	}
 }
 
 # Open useful tabs
 if ($configFile."Open-tabs") {
-    for (
+	for (
 		$i = 0
-        $i -lt $configFile."Open-tabs".Count
-        $i++    
-		){
+		$i -lt $configFile."Open-tabs".Count
+		$i++
+		) {
 			Start-Process $configFile."Open-tabs"[$i]
-			}
-			}
+		}
+}
 
 # Set accent colour from config file
-if($configFile."Accent-colour") {
+if ($configFile."Accent-colour") {
 	$ColorValue = $configFile."Accent-colour".Split(" ") | ForEach-Object { "0x$_" }
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Value ([byte[]]$ColorValue)
 }
-				
+
+	$ColorValue = $configFile."Accent-colour".Split(" ") | ForEach-Object { "0x$_" }
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
 
 # Easter egg ;)
-if ($configFile.'Funny-joe-biden'){
-    $images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
+if ($configFile."Funny-joe-biden") {
+	$images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
 
 
-    # Create folder to store downloaded images in to prevent clutter.
-    $downloadPath = $env:USERPROFILE + "\Downloads\likes-gay-images"
-    If (!(test-path $downloadPath)) {
-	    New-Item -ItemType Directory -Path $downloadPath
-    }
+	# Create folder to store downloaded images in to prevent clutter.
+	$downloadPath = $env:USERPROFILE + "\Downloads\likes-gay-images"
+	if (!(test-path $downloadPath)) {
+		New-Item -ItemType Directory -Path $downloadPath
+	}
 
-    foreach ($i in $images) {
-	    # Get the name of the image from the URL
-	    # Windows will not open images in the photo viewer unless they have a file extension.
-	    $imageName = $i.split("/")[$i.split("/").Count - 1]
+	foreach ($i in $images) {
+		# Get the name of the image from the URL
+		# Windows will not open images in the photo viewer unless they have a file extension.
+		$imageName = $i.split("/")[$i.split("/").Count - 1]
 
-	    # Download and open the image
-	    Invoke-WebRequest -Uri $i -OutFile $downloadPath\$imageName
-	    Start-Process $downloadPath\$imageName
-    }
+		# Download and open the image
+		Invoke-WebRequest -Uri $i -OutFile $downloadPath\$imageName
+		Start-Process $downloadPath\$imageName
+	}
 }
+
 Exit
