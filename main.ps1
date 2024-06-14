@@ -29,6 +29,9 @@ try {
 	Exit
 }
 
+# Delete config file after use
+Remove-Item -Path .\config.json
+
 # Unpin unused apps from the taskbar
 if ($configFile.'Unpin-apps') {
 	UnPin-App "Microsoft Edge"
@@ -140,10 +143,13 @@ Stop-Process -processName: Explorer # Restart explorer to apply changes that req
 
 if ($configFile.'Open-tabs') {
     # Open useful tabs
-    Start-Process "chrome.exe" "https://www.bbc.co.uk/news"
-    Start-Process "chrome.exe" "https://github.com/login"
-    Start-Process "chrome.exe" "https://office.com"
-    Start-Process "chrome.exe" "https://teams.microsoft.com/v2" -Wait -PassThru
+    for (
+        $i = 0
+        $i -lt $configFile.'Open-tabs'.Count
+        $i++    
+    ){
+        Start-Process "chrome.exe" $configFile.'Open-tabs'[$i]
+    }
 }
 
 if ($configFile.'Funny-joe-biden'){
