@@ -32,6 +32,11 @@ try {
 # Delete config file after use
 Remove-Item -Path .\config.json
 
+# Install git
+if ($configFile."Install-git") {
+	winget install --id Git.Git -e --source winget
+}
+
 # Unpin unused apps from the taskbar
 if ($configFile."Unpin-apps") {
 	UnPin-App "Microsoft Edge"
@@ -69,7 +74,6 @@ if ($configFile.'Task-bar-search-mode') {
     }
 
 }
-
 
 # Turn on file extensions in File Explorer
 if ($configFile."File-extentions") {
