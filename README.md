@@ -2,6 +2,12 @@
 Quickly configure Windows with the objectively best settings
 
 # The options
+
+Alll the options can all be found in the [configs' README.md](https://github.com/likes-gay/win-config/blob/main/configs/README.md).
+
+And all these different options are configurable per user.
+It works by finding their config based off of the computer's username.
+
 * Unpin unused apps
 * Enable dark mode for all apps and windows
 * Remove the task view icon from taskbar
