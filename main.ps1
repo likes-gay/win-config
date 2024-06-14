@@ -53,6 +53,24 @@ if ($configFile."Remove-task-view") {
 	Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
 }
 
+# Set task bar search type
+if ($configFile.'Task-bar-search-mode') {
+    $taskBarSearchModeRegKey = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
+    if ($configFile.'Task-bar-search-mode' -eq "Hidden"){
+        Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 0
+    }
+    
+    if ($configFile.'Task-bar-search-mode' -eq "Icon"){
+        Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 1
+    }
+    
+    if ($configFile.'Task-bar-search-mode' -eq "Bar"){
+        Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 2
+    }
+
+}
+
+
 # Turn on file extensions in File Explorer
 if ($configFile."File-extentions") {
 	Set-ItemProperty -Path $explorer -Name "HideFileExt" -Value 0
