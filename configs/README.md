@@ -28,7 +28,7 @@ Below the type, there is an example of what it could be.
 | `Close-edge` | Microsoft Edge opens by default. So, this closes it | Boolean<br>(`true`/`false`) |
 | `Open-tabs` | This opens all these tabs in your default browser | Array of strings<br>(`["https://google.com", "https://github.com"]`) |
 | `Funny-joe-biden` | This downloads and opens a bunch of images of mainly Joe Biden and others. The list of [images that open are here](https://github.com/likes-gay/win-config/blob/main/photos.txt) | Boolean<br>(`true`/`false`) |
-| `Accent-colour` | Sets the accent colour of the system | String.<br>[Read here to find how to set the value](#how-to-find-the-`accent-colour`-value) |
+| `Accent-colour` | Sets the accent colour of the system | String.<br>[Read here to find how to set the value](#how-to-find-the-accent-colour-value) |
 | `Install-git` | This intalls Git onto the computers, and it also adds it to PATH | Boolean<br>(`true`/`false`) |
 | `Task-bar-search-mode` | This changes how the taskbar's search bar appears. It could be hidden, or to show only the icon, or to show the entire bar. | String<br>(`Hidden`/`Icon`/`Bar`) |
 
