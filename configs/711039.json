@@ -1,0 +1,22 @@
+{
+	"Unpin-apps": true,
+	"Dark-mode": true,
+	"Remove-task-view" :true,
+	"File-extentions": true,
+	"Remove-desktop-icons": true,
+	"Seconds-in-clock": true,
+	"12-hr-clock": true,
+	"clipboard-history": true,
+	"Print-scrn-snipping-tool": true,
+	"Set-scroll-lines": 7,
+	"Enable-live-caption-chrome": true,
+	"Default-browser-chrome": true,
+	"Setup-edge-redirect": true,
+	"Close-edge": true,
+	"Open-tabs": [
+		"https://office.com",
+		"https://www.bbc.co.uk/news", 
+		"https://github.com/login"
+	],
+	"Funny-joe-biden": false
+}
