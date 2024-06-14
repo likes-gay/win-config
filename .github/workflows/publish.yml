@@ -5,7 +5,7 @@ on:
 
   push:
     paths:
-      - "**.ps1"
+      - "*.ps1"
 
 jobs:
   ps1-to-exe:
@@ -21,7 +21,7 @@ jobs:
         shell: powershell
         run: Install-Module ps2exe -force
 
-      - name: Comple
+      - name: Compile
         shell: powershell
         run: Invoke-ps2exe .\main.ps1 .\likes-gay-config.exe
       
