@@ -1,7 +1,7 @@
 {
 	"Unpin-apps": true,
 	"Dark-mode": true,
-	"Remove-task-view" :true,
+	"Remove-task-view": true,
 	"File-extentions": true,
 	"Remove-desktop-icons": false,
 	"Seconds-in-clock": true,
@@ -14,7 +14,7 @@
 	"Setup-edge-redirect": true,
 	"Close-edge": true,
 	"Open-tabs": [
-		"https://www.bbc.co.uk/news", 
+		"https://www.bbc.co.uk/news",
 		"https://github.com/login",
 		"https://office.com",
 		"https://teams.microsoft.com/v2/"

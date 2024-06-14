@@ -1,7 +1,7 @@
 {
 	"Unpin-apps": true,
 	"Dark-mode": true,
-	"Remove-task-view" :true,
+	"Remove-task-view": true,
 	"File-extentions": true,
 	"Remove-desktop-icons": true,
 	"Seconds-in-clock": true,
@@ -14,12 +14,12 @@
 	"Setup-edge-redirect": true,
 	"Close-edge": true,
 	"Open-tabs": [
-		"https://www.bbc.co.uk/news", 
+		"https://www.bbc.co.uk/news",
 		"https://github.com/login",
 		"https://office.com"
 	],
 	"Funny-joe-biden": false,
-    "Accent-colour": "FD 86 5F 00 FC 75 51 00 F8 63 42 00 F7 63 0C 00 D0 41 22 00 9C 31 1A 00 79 27 14 00 00 99 BC 00",
+	"Accent-colour": "FD 86 5F 00 FC 75 51 00 F8 63 42 00 F7 63 0C 00 D0 41 22 00 9C 31 1A 00 79 27 14 00 00 99 BC 00",
 	"Install-git": true,
 	"Task-bar-search-mode": "Hidden"
 }

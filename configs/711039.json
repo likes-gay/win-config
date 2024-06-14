@@ -1,7 +1,7 @@
 {
 	"Unpin-apps": true,
 	"Dark-mode": true,
-	"Remove-task-view" :true,
+	"Remove-task-view": true,
 	"File-extentions": true,
 	"Remove-desktop-icons": true,
 	"Seconds-in-clock": true,
@@ -15,7 +15,7 @@
 	"Close-edge": true,
 	"Open-tabs": [
 		"https://office.com",
-		"https://www.bbc.co.uk/news", 
+		"https://www.bbc.co.uk/news",
 		"https://github.com/login"
 	],
 	"Funny-joe-biden": false,

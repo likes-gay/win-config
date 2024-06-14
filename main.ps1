@@ -177,8 +177,8 @@ if ($configFile."Open-tabs") {
 			}
 
 # Set accent colour from config file
-if($configFile.'Accent-colour'){
-	$ColorValue = $configFile.'Accent-colour'.Split(' ') | ForEach-Object { "0x$_" }
+if($configFile."Accent-colour") {
+	$ColorValue = $configFile."Accent-colour".Split(" ") | ForEach-Object { "0x$_" }
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Value ([byte[]]$ColorValue)
 }
 				
