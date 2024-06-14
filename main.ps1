@@ -170,7 +170,7 @@ if ($configFile."Open-tabs") {
 		$i -lt $configFile."Open-tabs".Count
 		$i++
 		) {
-			Start-Process $configFile."Open-tabs"[$i]
+			Start-Process "chrome.exe" $configFile."Open-tabs"[$i]
 		}
 }
 
