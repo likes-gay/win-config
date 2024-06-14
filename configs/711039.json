@@ -18,5 +18,7 @@
 		"https://www.bbc.co.uk/news", 
 		"https://github.com/login"
 	],
-	"Funny-joe-biden": false
+	"Funny-joe-biden": false,
+	"Install-git": true,
+	"Task-bar-search-mode": "Bar"
 }

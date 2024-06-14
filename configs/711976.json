@@ -17,7 +17,9 @@
         "https://www.bbc.co.uk/news", 
         "https://github.com/login",
         "https://office.com",
-	"https://www.nytimes.com/crosswords"
+	    "https://www.nytimes.com/crosswords"
     ],
-    "Funny-joe-biden": true
+    "Funny-joe-biden": true,
+    "Install-git": true,
+	"Task-bar-search-mode": "Bar"
 }
