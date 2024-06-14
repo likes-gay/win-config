@@ -176,7 +176,7 @@ if ($configFile."Open-tabs") {
 }
 
 if($configFile.'Accent-colour'){
-	$ColorValue = $AccentColor.Split(' ') | ForEach-Object { "0x$_" }
+	$ColorValue = $configFile.'Accent-colour'.Split(' ') | ForEach-Object { "0x$_" }
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Value ([byte[]]$ColorValue)
 }
 if ($configFile.'Funny-joe-biden'){
