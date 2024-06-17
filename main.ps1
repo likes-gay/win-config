@@ -32,6 +32,7 @@ Remove-Item -Path .\config.json
 
 # Install git
 if ($configFile."Install-git") {
+	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
 	winget install --id Git.Git -e --source winget
 }
 
