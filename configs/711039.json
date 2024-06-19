@@ -8,7 +8,7 @@
 	"12-hr-clock": true,
 	"clipboard-history": true,
 	"Print-scrn-snipping-tool": true,
-	"Set-scroll-lines": 7,
+	"Set-scroll-lines": 8,
 	"Enable-live-caption-chrome": true,
 	"Default-browser-chrome": true,
 	"Setup-edge-redirect": true,
@@ -18,7 +18,7 @@
 		"https://www.bbc.co.uk/news",
 		"https://github.com/login"
 	],
-	"Funny-joe-biden": false,
 	"Install-git": true,
-	"Task-bar-search-mode": "Bar"
+	"Task-bar-search-mode": "Bar",
+	"Launch-VScode": true
 }
