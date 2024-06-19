@@ -32,6 +32,7 @@ Below the type, there is an example of what it could be.
 | `Accent-colour-on-task-bar` | Apply the accent colour to the start menu, taskbar and action centre | Boolean<br>(`true`/`false`) |
 | `Install-git` | This intalls Git onto the computers, and it also adds it to PATH | Boolean<br>(`true`/`false`) |
 | `Task-bar-search-mode` | This changes how the taskbar's search bar appears. It could be hidden, or to show only the icon, or to show the entire bar. | String<br>(`Hidden`/`Icon`/`Bar`) |
+| `Launch-VScode` | Automatically launch VScode | Boolean<br>(`true`/`false`) |
 
 ## How to find the `Accent-colour` value
 
