@@ -175,6 +175,11 @@ if ($configFile."Open-tabs") {
 		}
 }
 
+# Lanuch VScode
+if ($configFile."Launch-VScode") {
+	code
+}
+
 # Set accent colour from config file
 if ($configFile."Accent-colour") {
 	$ColorValue = $configFile."Accent-colour".Split(" ") | ForEach-Object { "0x$_" }
