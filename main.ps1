@@ -36,6 +36,11 @@ if ($configFile."Install-git") {
 	winget install --id Git.Git -e --source winget
 }
 
+# Install UV (Python PIP replacement https://github.com/astral-sh/uv)
+if ($configFile."Install-UV") {
+	powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+}
+
 # Unpin unused apps from the taskbar
 if ($configFile."Unpin-apps") {
 	UnPin-App "Microsoft Edge"
