@@ -9,7 +9,7 @@
 	"clipboard-history": true,
 	"Print-scrn-snipping-tool": true,
 	"Set-scroll-lines": 7,
-	"Enable-live-caption-chrome": true,
+	"Enable-live-caption-chrome": false,
 	"Default-browser-chrome": true,
 	"Setup-edge-redirect": true,
 	"Close-edge": true,
