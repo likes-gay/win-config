@@ -38,7 +38,7 @@ if ($configFile."Install-git") {
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
-	powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+	irm https://astral.sh/uv/install.ps1 | iex
 }
 
 # Unpin unused apps from the taskbar
@@ -63,17 +63,17 @@ if ($configFile."Remove-task-view") {
 }
 
 # Set task bar search type
-if ($configFile.'Task-bar-search-mode') {
+if ($configFile."Task-bar-search-mode") {
 	$taskBarSearchModeRegKey = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
-	if ($configFile.'Task-bar-search-mode' -eq "Hidden") {
+	if ($configFile."Task-bar-search-mode" -eq "Hidden") {
 		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 0
 	}
 	
-	if ($configFile.'Task-bar-search-mode' -eq "Icon") {
+	if ($configFile."Task-bar-search-mode" -eq "Icon") {
 		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 1
 	}
 	
-	if ($configFile.'Task-bar-search-mode' -eq "Bar") {
+	if ($configFile."Task-bar-search-mode" -eq "Bar") {
 		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 2
 	}
 
