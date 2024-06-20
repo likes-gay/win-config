@@ -205,7 +205,7 @@ if ($configFile."Funny-joe-biden") {
 
 
 	# Create folder to store downloaded images in to prevent clutter.
-	$downloadPath = $env:USERPROFILE + "\Downloads\likes-gay-images"
+	$downloadPath = "$env:USERPROFILE\Downloads\likes-gay-images"
 	if (!(test-path $downloadPath)) {
 		New-Item -ItemType Directory -Path $downloadPath
 	}
