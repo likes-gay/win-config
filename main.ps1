@@ -36,8 +36,11 @@ if ($configFile."Install-git") {
 	winget install --id Git.Git -e --source winget
     
     if ($configFile."Install-gh-desktop") {
-        Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile "./GitHubDesktopSetup-x64.exe"
-        Start-Process "./GitHubDesktopSetup-x64.exe"
+        Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
+        Start-Process ".\GitHubDesktopSetup-x64.exe"
+	
+ 	# TODO: delete the file after opening it, but it can't be deleted straight away
+ 	#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
     }
 }
 
