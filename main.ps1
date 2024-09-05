@@ -34,6 +34,11 @@ Remove-Item -Path .\config.json
 if ($configFile."Install-git") {
 	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
 	winget install --id Git.Git -e --source winget
+    
+    if ($configFile."Install-gh-desktop") {
+        Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile "./GitHubDesktopSetup-x64.exe"
+        Start-Process "./GitHubDesktopSetup-x64.exe"
+    }
 }
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)

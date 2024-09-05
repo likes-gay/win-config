@@ -22,6 +22,7 @@
 	"Accent-colour": "FD 86 5F 00 FC 75 51 00 F8 63 42 00 F7 63 0C 00 D0 41 22 00 9C 31 1A 00 79 27 14 00 00 99 BC 00",
 	"Accent-colour-on-task-bar": true,
 	"Install-git": true,
+	"Install-gh-desktop": true,
 	"Task-bar-search-mode": "Hidden",
 	"Launch-VScode": true
 }
