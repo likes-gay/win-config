@@ -30,6 +30,22 @@ try {
 # Delete config file after use
 Remove-Item -Path .\config.json
 
+# Set default browser to Chrome
+if ($configFile."Default-browser-chrome") {
+	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
+	Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
+	Remove-Item -Path ".\default_browser.vbs"
+
+	# Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
+	if ($configFile."Setup-edge-redirect") {
+		Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
+		Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
+		Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+		Remove-Item -Path ".\edge_redirect.ini"
+		Remove-Item -Path ".\MSEdgeRedirect.exe"
+	}
+}
+
 # Install git
 if ($configFile."Install-git") {
 	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
@@ -151,23 +167,6 @@ if ($configFile."Enable-live-caption-chrome") {
 
 	$content | ConvertTo-Json -Compress | Set-Content -Path $originalFile
 }
-
-# Set default browser to Chrome
-if ($configFile."Default-browser-chrome") {
-	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
-	Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
-	Remove-Item -Path ".\default_browser.vbs"
-
-	# Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
-	if ($configFile."Setup-edge-redirect") {
-		Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
-		Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
-		Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
-		Remove-Item -Path ".\edge_redirect.ini"
-		Remove-Item -Path ".\MSEdgeRedirect.exe"
-	}
-}
-
 
 if ($configFile."Close-edge") {
 	try {
