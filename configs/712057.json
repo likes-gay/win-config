@@ -24,5 +24,6 @@
 	"Install-git": true,
 	"Install-gh-desktop": true,
 	"Task-bar-search-mode": "Hidden",
-	"Launch-VScode": true
+	"Launch-VScode": true,
+	"Install-UV": true
 }

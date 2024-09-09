@@ -24,5 +24,6 @@
 	"Accent-colour-on-task-bar": true,
 	"Install-git": true,
 	"Task-bar-search-mode": "Hidden",
-	"Launch-VScode": true
+	"Launch-VScode": true,
+	"Install-UV": true
 }
