@@ -17,7 +17,8 @@
 		"https://www.bbc.co.uk/news",
 		"https://github.com/login",
 		"https://office.com",
-		"https://www.facebook.com/marketplace/"
+		"https://www.facebook.com/marketplace/",
+		"https://open.spotify.com/"
 	],
 	"Funny-joe-biden": true,
 	"Accent-colour": "59 EF 12 FF 47 DE 00 FF 3F C4 00 FF 39 A6 05 FF 30 8D 04 FF 28 74 03 FF 1C 50 04 FF 88 17 98 00",
@@ -25,5 +26,6 @@
 	"Install-git": true,
 	"Task-bar-search-mode": "Hidden",
 	"Launch-VScode": true,
-	"Install-UV": true
+	"Install-UV": true,
+	"Combine-taskbar-buttons": "Never"
 }
