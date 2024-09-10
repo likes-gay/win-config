@@ -22,5 +22,6 @@
 	"Install-gh-desktop": true,
 	"Task-bar-search-mode": "Bar",
 	"Launch-VScode": true,
-	"Install-UV": true
+	"Install-UV": true,
+	"Combine-taskbar-buttons": "Never"
 }

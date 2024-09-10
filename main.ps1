@@ -86,6 +86,22 @@ if ($configFile."Remove-task-view") {
 	Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
 }
 
+# Combine taskbar button seetings
+
+if ($configFile."Combine-taskbar-buttons") {
+    if ($configFile."Combine-taskbar-buttons" -eq "Always") {
+        Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 0
+    }
+
+    if ($configFile."Combine-taskbar-buttons" -eq "When-full") {
+        Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 1
+    }
+
+    if ($configFile."Combine-taskbar-buttons" -eq "Never") {
+        Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 2
+    }
+}
+
 # Set task bar search type
 if ($configFile."Task-bar-search-mode") {
 	$taskBarSearchModeRegKey = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
