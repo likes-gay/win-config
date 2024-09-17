@@ -62,7 +62,7 @@ if ($configFile."Install-git") {
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
-	irm https://astral.sh/uv/install.ps1 | iex
+	winget install --id=astral-sh.uv  -e
 }
 
 # Unpin unused apps from the taskbar
