@@ -46,25 +46,6 @@ if ($configFile."Default-browser-chrome") {
 	}
 }
 
-# Install git
-if ($configFile."Install-git") {
-	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
-	winget install --id Git.Git -e --source winget
-    
-    if ($configFile."Install-gh-desktop") {
-        Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
-        Start-Process ".\GitHubDesktopSetup-x64.exe"
-	
- 	# TODO: delete the file after opening it, but it can't be deleted straight away
- 	#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
-    }
-}
-
-# Install UV (Python PIP replacement https://github.com/astral-sh/uv)
-if ($configFile."Install-UV") {
-	winget install --id=astral-sh.uv  -e
-}
-
 # Unpin unused apps from the taskbar
 if ($configFile."Unpin-apps") {
 	UnPin-App "Microsoft Edge"
@@ -89,17 +70,17 @@ if ($configFile."Remove-task-view") {
 # Combine taskbar button seetings
 
 if ($configFile."Combine-taskbar-buttons") {
-    if ($configFile."Combine-taskbar-buttons" -eq "Always") {
-        Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 0
-    }
+	if ($configFile."Combine-taskbar-buttons" -eq "Always") {
+		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 0
+	}
 
-    if ($configFile."Combine-taskbar-buttons" -eq "When-full") {
-        Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 1
-    }
+	if ($configFile."Combine-taskbar-buttons" -eq "When-full") {
+		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 1
+	}
 
-    if ($configFile."Combine-taskbar-buttons" -eq "Never") {
-        Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 2
-    }
+	if ($configFile."Combine-taskbar-buttons" -eq "Never") {
+		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 2
+	}
 }
 
 # Set task bar search type
@@ -221,6 +202,25 @@ if ($configFile."Accent-colour-on-task-bar") {
 }
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
+
+# Install git
+if ($configFile."Install-git") {
+	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
+	winget install --id Git.Git -e --source winget
+
+	if ($configFile."Install-gh-desktop") {
+		Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
+		Start-Process ".\GitHubDesktopSetup-x64.exe"
+	
+ 	# TODO: delete the file after opening it, but it can't be deleted straight away
+ 	#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
+	}
+}
+
+# Install UV (Python PIP replacement https://github.com/astral-sh/uv)
+if ($configFile."Install-UV") {
+	winget install --id=astral-sh.uv -e --accept-package-agreements
+}
 
 # Easter egg ;)
 if ($configFile."Funny-joe-biden") {
