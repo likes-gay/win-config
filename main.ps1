@@ -20,7 +20,7 @@ try {
 
 # Parse config file
 try {
-	$configFile = Get-Content .\config.json -Raw | ConvertFrom-Json
+	$configFile = Get-Content ".\config.json" -Raw | ConvertFrom-Json
 	
 } catch {
 	Write-Error "Malformed config file"
