@@ -68,7 +68,6 @@ if ($configFile."Remove-task-view") {
 }
 
 # Combine taskbar button seetings
-
 if ($configFile."Combine-taskbar-buttons") {
 	if ($configFile."Combine-taskbar-buttons" -eq "Always") {
 		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 0
@@ -219,7 +218,7 @@ if ($configFile."Install-git") {
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
-	winget install --id=astral-sh.uv -e --accept-package-agreements
+	winget install --id=astral-sh.uv -e --accept-source-agreements
 }
 
 # Easter egg ;)
