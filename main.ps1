@@ -100,35 +100,6 @@ if ($configFile."Default-browser-chrome") {
 	}
 }
 
-# Install MS-Terminal
-if ($configFile."Install-terminal") {
-    $filePath = Get-LatestRelease-Github -RepositoryUrl "https://github.com/microsoft/terminal" -FileExtension "msixbundle"
-
-    Write-Output $filePath
-    if ($filePath) {
-            Add-AppxPackage $filePath
-    }
-}
-
-# Install git
-if ($configFile."Install-git") {
-	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
-	winget install --id Git.Git -e --source winget
-    
-    if ($configFile."Install-gh-desktop") {
-        Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
-        Start-Process ".\GitHubDesktopSetup-x64.exe"
-	
- 	# TODO: delete the file after opening it, but it can't be deleted straight away
- 	#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
-    }
-}
-
-# Install UV (Python PIP replacement https://github.com/astral-sh/uv)
-if ($configFile."Install-UV") {
-	irm https://astral.sh/uv/install.ps1 | iex
-}
-
 # Unpin unused apps from the taskbar
 if ($configFile."Unpin-apps") {
 	UnPin-App "Microsoft Edge"
@@ -302,6 +273,15 @@ if ($configFile."Install-git") {
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
 	winget install --id=astral-sh.uv -e --accept-source-agreements
+}
+
+# Install MS-Terminal
+if ($configFile."Install-terminal") {
+    $filePath = Get-LatestRelease-Github -RepositoryUrl "https://github.com/microsoft/terminal" -FileExtension "msixbundle"
+    Write-Output $filePath
+    if ($filePath) {
+            Add-AppxPackage $filePath
+    }
 }
 
 # Easter egg ;)

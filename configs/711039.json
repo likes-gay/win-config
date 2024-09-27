@@ -23,5 +23,6 @@
 	"Task-bar-search-mode": "Bar",
 	"Launch-VScode": true,
 	"Install-UV": true,
-	"Combine-taskbar-buttons": "Never"
+	"Combine-taskbar-buttons": "Never",
+	"Install-terminal": false
 }

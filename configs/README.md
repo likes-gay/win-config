@@ -36,6 +36,7 @@ Below the type, there is an example of what it could be.
 | `Close-edge`                 | Microsoft Edge opens by default. So, this closes it                                                                                                                                                       | Boolean<br>(`true`/`false`)                                                               |
 | `Open-tabs`                  | This opens all these tabs in your default browser                                                                                                                                                         | Array of strings<br>(`["https://google.com", "https://github.com"]`)                      |
 | `Funny-joe-biden`            | This downloads and opens a bunch of images of mainly Joe Biden and others. The list of [images that open are here](https://github.com/likes-gay/win-config/blob/main/photos.txt)                          | Boolean<br>(`true`/`false`)                                                               |
+| `Install-terminal` 		 | This installs the updated [Windows Terminal](https://github.com/Microsoft/Terminal).                                                                                                                        | Boolean<br>(`true`/`false`)                                                               |
 
 ## How to find the `Accent-colour` value
 
