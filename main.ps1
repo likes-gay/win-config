@@ -9,6 +9,60 @@ function UnPin-App { param(
 		Write-Error "Error Unpinning App! (Is '$appname' correct?)"
 	}
 }
+function Get-LatestRelease-Github {
+    param (
+        [string]$RepositoryUrl,
+        [string]$ArchPattern = "",
+        [string]$FileExtension = ""
+    )
+
+    # Extract the owner and repo from the URL
+    if ($RepositoryUrl -match "https://github.com/([^/]+)/([^/]+)") {
+        $Owner = $matches[1]
+        $Repo = $matches[2]
+    } else {
+        Write-Error "Invalid GitHub repository URL."
+        return
+    }
+
+    # Build the API URL for the latest release
+    $ApiUrl = "https://api.github.com/repos/$Owner/$Repo/releases/latest"
+
+    # Make the API request
+    try {
+        $Response = Invoke-RestMethod -Uri $ApiUrl -Headers @{"User-Agent"="PowerShell"}
+    } catch {
+        Write-Error "Failed to retrieve the latest release information."
+        return
+    }
+
+    # Find the asset that matches the given pattern and file extension
+    $DownloadUrl = $null
+    $FileName = $null
+    foreach ($asset in $Response.assets) {
+        $Pattern = "$ArchPattern.*\.$FileExtension$"
+        if ($asset.browser_download_url -match $Pattern) {
+            $DownloadUrl = $asset.browser_download_url
+            $FileName = $asset.name
+            break
+        }
+    }
+
+    if (-not $DownloadUrl) {
+        Write-Error "No matching assets found in the latest release."
+        return
+    }
+
+    # Download the asset
+    try {
+        Invoke-WebRequest -Uri $DownloadUrl -OutFile $FileName
+        return $FileName
+    } catch {
+        Write-Error "Failed to download the latest release."
+    }
+}
+
+#---------------------------------------------------------------------------------------------------------------------------------------------
 
 # Download user config file
 try {
@@ -44,6 +98,35 @@ if ($configFile."Default-browser-chrome") {
 		Remove-Item -Path ".\edge_redirect.ini"
 		Remove-Item -Path ".\MSEdgeRedirect.exe"
 	}
+}
+
+# Install MS-Terminal
+if ($configFile."Install-terminal") {
+    $filePath = Get-LatestRelease-Github -RepositoryUrl "https://github.com/microsoft/terminal" -FileExtension "msixbundle"
+
+    Write-Output $filePath
+    if ($filePath) {
+            Add-AppxPackage $filePath
+    }
+}
+
+# Install git
+if ($configFile."Install-git") {
+	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
+	winget install --id Git.Git -e --source winget
+    
+    if ($configFile."Install-gh-desktop") {
+        Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
+        Start-Process ".\GitHubDesktopSetup-x64.exe"
+	
+ 	# TODO: delete the file after opening it, but it can't be deleted straight away
+ 	#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
+    }
+}
+
+# Install UV (Python PIP replacement https://github.com/astral-sh/uv)
+if ($configFile."Install-UV") {
+	irm https://astral.sh/uv/install.ps1 | iex
 }
 
 # Unpin unused apps from the taskbar
