@@ -121,36 +121,34 @@ if ($configFile."Remove-task-view") {
 	Set-ItemProperty -Path $explorer -Name "ShowTaskViewButton" -Value 0
 }
 
-# Combine taskbar button seetings
+# Combine taskbar button settings
 if ($configFile."Combine-taskbar-buttons") {
-	if ($configFile."Combine-taskbar-buttons" -eq "Always") {
-		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 0
+	$combineTaskbarButtonsMap = @{
+		"Always"    = 0
+		"When-full" = 1
+		"Never"     = 2
 	}
 
-	if ($configFile."Combine-taskbar-buttons" -eq "When-full") {
-		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 1
-	}
-
-	if ($configFile."Combine-taskbar-buttons" -eq "Never") {
-		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value 2
+	$combineValue = $combineTaskbarButtonsMap[$configFile."Combine-taskbar-buttons"]
+	if ($null -ne $combineValue) {
+		Set-ItemProperty -Path $explorer -Name "TaskbarGlomLevel" -Value $combineValue
 	}
 }
 
 # Set task bar search type
 if ($configFile."Task-bar-search-mode") {
 	$taskBarSearchModeRegKey = "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
-	if ($configFile."Task-bar-search-mode" -eq "Hidden") {
-		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 0
-	}
-	
-	if ($configFile."Task-bar-search-mode" -eq "Icon") {
-		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 1
-	}
-	
-	if ($configFile."Task-bar-search-mode" -eq "Bar") {
-		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value 2
+	$searchboxTaskbarModeMap = @{
+		"Hidden" = 0
+		"Icon"   = 1
+		"Bar"    = 2
 	}
 
+	$searchboxValue = $searchboxTaskbarModeMap[$configFile."Task-bar-search-mode"]
+
+	if ($null -ne $searchboxValue) {
+		Set-ItemProperty -Path $taskBarSearchModeRegKey -Name "SearchboxTaskbarMode" -Value $searchboxValue
+	}
 }
 
 # Turn on file extensions in File Explorer
