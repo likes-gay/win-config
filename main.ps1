@@ -280,6 +280,17 @@ if ($configFile."Install-terminal") {
     if ($filePath) {
             Add-AppxPackage $filePath
     }
+
+    if ($configFile."Set-default-terminal") {
+        $consoleStartupPath = "HKCU:\Console\%%Startup"
+
+        if (-not (Test-Path $consoleStartupPath)) {
+            New-Item -Path $consoleStartupPath -Force
+        }
+
+        New-ItemProperty -Path $consoleStartupPath -Name "DelegationConsole" -Value "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}"
+        New-ItemProperty -Path $consoleStartupPath -Name "DelegationTerminal" -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}"
+    }
 }
 
 # Easter egg ;)

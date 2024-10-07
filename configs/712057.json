@@ -27,5 +27,6 @@
 	"Task-bar-search-mode": "Hidden",
 	"Launch-VScode": true,
 	"Install-UV": true,
-	"Install-terminal": false
+	"Install-terminal": false,
+	"Set-default-terminal": true
 }
