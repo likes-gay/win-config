@@ -9,7 +9,7 @@ function UnPin-App { param(
 		Write-Error "Error Unpinning App! (Is '$appname' correct?)"
 	}
 }
-function Get-LatestRelease-Github {
+function Get-LatestRelease-GitHub {
     param (
         [string]$RepositoryUrl,
         [string]$ArchPattern = "",
@@ -276,7 +276,7 @@ if ($configFile."Install-UV") {
 
 # Install MS-Terminal
 if ($configFile."Install-terminal") {
-    $filePath = Get-LatestRelease-Github -RepositoryUrl "https://github.com/microsoft/terminal" -FileExtension "msixbundle"
+    $filePath = Get-LatestRelease-GitHub -RepositoryUrl "https://github.com/microsoft/terminal" -FileExtension "msixbundle"
     Write-Output $filePath
     if ($filePath) {
             Add-AppxPackage $filePath
