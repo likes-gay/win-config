@@ -168,7 +168,8 @@ if ($configFile."Seconds-in-clock") {
 
 # Enable 12 hour time in clock
 if ($configFile."12-hr-clock") {
-	Set-ItemProperty -Path $explorer -Name "UseWin32TrayClockExperience" -Value 0 -Force
+	Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sShortTime" -Value "h:mm tt" -Force
+	Set-ItemProperty -Path "HKCU:\Control Panel\International" -Name "sTimeFormat" -Value "h:mm:ss tt" -Force
 }
 
 # Enable the clipboard history
