@@ -22,6 +22,7 @@
 	"Accent-colour-on-task-bar": true,
 	"Install-git": true,
 	"Task-bar-search-mode": "Icon",
-	"Launch-VScode": true,
-	"Install-UV": true
+	"Launch-VScode": false,
+	"Install-UV": true,
+	"Install-gh-desktop": true
 }
