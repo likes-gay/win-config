@@ -38,6 +38,7 @@ Below the type, there is an example of what it could be.
 | `Funny-joe-biden`            | This downloads and opens a bunch of images of mainly Joe Biden and others. The list of [images that open are here](https://github.com/likes-gay/win-config/blob/main/photos.txt)                          | Boolean<br>(`true`/`false`)                                                               |
 | `Install-terminal`           | This installs the updated [Windows Terminal](https://github.com/Microsoft/Terminal).                                                                                                                      | Boolean<br>(`true`/`false`)                                                               |
 | `Set-default-terminal`       | This sets the default terminal to be the Windows Terminal.                                                                                                                                                | Boolean<br>(`true`/`false`)                                                               |
+| `Install-JB-Toolbox`         | Installs [JetBrains Toolbox App](https://www.jetbrains.com/toolbox-app/).                                                                                                                                 | Boolean<br>(`true`/`false`)                                                               |
 
 ## How to find the `Accent-colour` value
 
