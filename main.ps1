@@ -294,6 +294,10 @@ if ($configFile."Install-terminal") {
     }
 }
 
+if ($configFile."Install-JB-Toolbox") {
+	winget install -e --id JetBrains.Toolbox
+}
+
 # Easter egg ;)
 if ($configFile."Funny-joe-biden") {
 	$images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
