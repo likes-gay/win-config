@@ -29,5 +29,6 @@
 	"Launch-VScode": true,
 	"Install-UV": true,
 	"Install-terminal": true,
-	"Set-default-terminal": true
+	"Set-default-terminal": true,
+	"Install-JB-Toolbox": true
 }
