@@ -87,6 +87,7 @@ Remove-Item -Path .\config.json
 # Install Scoop
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+scoop bucket add extras
 
 # Set default browser to Chrome
 if ($configFile."Default-browser-chrome") {
@@ -300,6 +301,10 @@ if ($configFile."Install-terminal") {
 
 if ($configFile."Install-JB-Toolbox") {
 	winget install -e --id JetBrains.Toolbox
+}
+
+if ($configFile."Install-Spotify") {
+	scoop install extras/spotify
 }
 
 # Easter egg ;)
