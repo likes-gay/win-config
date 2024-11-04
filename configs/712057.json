@@ -30,5 +30,6 @@
 	"Install-UV": true,
 	"Install-terminal": true,
 	"Set-default-terminal": true,
-	"Install-JB-Toolbox": true
+	"Install-JB-Toolbox": true,
+	"Install-Spotify": true
 }
