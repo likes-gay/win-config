@@ -24,5 +24,6 @@
 	"Task-bar-search-mode": "Icon",
 	"Launch-VScode": false,
 	"Install-UV": true,
-	"Install-gh-desktop": true
+	"Install-gh-desktop": true,
+	"Install-Spotify": true
 }
