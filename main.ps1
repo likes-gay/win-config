@@ -85,10 +85,10 @@ try {
 Remove-Item -Path .\config.json
 
 # Install Scoop
-try {
+if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-} catch {
+} else {
 	Write-Output "Skipping scoop install"
  }
 
