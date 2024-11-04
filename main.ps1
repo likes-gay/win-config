@@ -85,8 +85,13 @@ try {
 Remove-Item -Path .\config.json
 
 # Install Scoop
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+try {
+	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+} catch {
+	Write-Output "Skipping scoop install"
+ }
+
 scoop bucket add extras
 
 # Set default browser to Chrome
