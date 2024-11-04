@@ -281,22 +281,18 @@ if ($configFile."Install-UV") {
 
 # Install MS-Terminal
 if ($configFile."Install-terminal") {
-    $filePath = Get-LatestRelease-GitHub -RepositoryUrl "https://github.com/microsoft/terminal" -FileExtension "msixbundle"
-    Write-Output $filePath
-    if ($filePath) {
-            Add-AppxPackage $filePath
-    }
+	scoop install extras/windows-terminal
 
-    if ($configFile."Set-default-terminal") {
-        $consoleStartupPath = "HKCU:\Console\%%Startup"
+	if ($configFile."Set-default-terminal") {
+		$consoleStartupPath = "HKCU:\Console\%%Startup"
 
-        if (-not (Test-Path $consoleStartupPath)) {
-            New-Item -Path $consoleStartupPath -Force
-        }
+	if (-not (Test-Path $consoleStartupPath)) {
+		New-Item -Path $consoleStartupPath -Force
+	}
 
-        New-ItemProperty -Path $consoleStartupPath -Name "DelegationConsole" -Value "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}"
-        New-ItemProperty -Path $consoleStartupPath -Name "DelegationTerminal" -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}"
-    }
+	New-ItemProperty -Path $consoleStartupPath -Name "DelegationConsole" -Value "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}"
+	New-ItemProperty -Path $consoleStartupPath -Name "DelegationTerminal" -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}"
+	}
 }
 
 if ($configFile."Install-JB-Toolbox") {
