@@ -312,6 +312,10 @@ if ($configFile."Install-Spotify") {
 	scoop install extras/spotify
 }
 
+if ($configFile."Install-Bitwarden") {
+	scoop install extras/bitwarden
+}
+
 # Easter egg ;)
 if ($configFile."Funny-joe-biden") {
 	$images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
