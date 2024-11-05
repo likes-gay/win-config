@@ -62,6 +62,10 @@ function Get-LatestRelease-GitHub {
     }
 }
 
+function Reload-Env {
+	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+ }
+
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
 # Download user config file
@@ -92,6 +96,7 @@ Install-Module -Name Microsoft.PowerShell.Archive -Scope CurrentUser -Force
 if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+ 	Reload-Env
 } else {
 	Write-Output "Skipping scoop install"
  }
