@@ -101,6 +101,7 @@ if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Write-Output "Skipping scoop install"
  }
 
+scoop install git
 scoop bucket add extras
 
 # Set default browser to Chrome
@@ -274,18 +275,12 @@ if ($configFile."Accent-colour-on-task-bar") {
 
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
 
-# Install git
-if ($configFile."Install-git") {
-	Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
-	winget install --id Git.Git -e --source winget
+if ($configFile."Install-gh-desktop") {
+	Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
+	Start-Process ".\GitHubDesktopSetup-x64.exe"
 
-	if ($configFile."Install-gh-desktop") {
-		Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
-		Start-Process ".\GitHubDesktopSetup-x64.exe"
-	
- 	# TODO: delete the file after opening it, but it can't be deleted straight away
- 	#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
-	}
+# TODO: delete the file after opening it, but it can't be deleted straight away
+#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
 }
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
