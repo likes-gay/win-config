@@ -19,7 +19,6 @@
 		"https://github.com/login"
 	],
 	"Install-gh-desktop": true,
-	"Install-git": true,
 	"Task-bar-search-mode": "Bar",
 	"Launch-VScode": true,
 	"Install-UV": true,
