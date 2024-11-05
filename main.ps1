@@ -85,6 +85,7 @@ try {
 Remove-Item -Path .\config.json
 
 # Install Scoop
+Install-Module -Name Microsoft.PowerShell.Archive -Scope CurrentUser -Force
 if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
