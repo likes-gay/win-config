@@ -84,8 +84,11 @@ try {
 # Delete config file after use
 Remove-Item -Path .\config.json
 
-# Install Scoop
+# Install required PS module
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Scope CurrentUser -Force
 Install-Module -Name Microsoft.PowerShell.Archive -Scope CurrentUser -Force
+
+# Install Scoop
 if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
