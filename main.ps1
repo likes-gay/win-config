@@ -285,7 +285,7 @@ if ($configFile."Install-gh-desktop") {
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
-	winget install --id=astral-sh.uv -e --accept-source-agreements
+	winget install --id=astral-sh.uv -e --accept-source-agreements --source winget
 }
 
 # Install MS-Terminal
