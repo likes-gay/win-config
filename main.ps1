@@ -68,6 +68,10 @@ function Reload-Env {
 
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
+# Go into the config directory
+mkdir likes-gay-config
+cd likes-gay-config
+
 # Download user config file
 try {
 	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/$Env:UserName.json" -outfile "config.json"
@@ -114,7 +118,10 @@ if ($configFile."Default-browser-chrome") {
 	if ($configFile."Setup-edge-redirect") {
 		Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
 		Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
-		Start-Process "MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+
+		$process = Start-Process -FilePath ".\MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+		$process.WaitForExit()
+
 		Remove-Item -Path ".\edge_redirect.ini"
 		Remove-Item -Path ".\MSEdgeRedirect.exe"
 	}
@@ -319,7 +326,6 @@ if ($configFile."Install-Bitwarden") {
 # Easter egg ;)
 if ($configFile."Funny-joe-biden") {
 	$images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
-
 
 	# Create folder to store downloaded images in to prevent clutter.
 	$downloadPath = "$env:USERPROFILE\Downloads\likes-gay-images"
