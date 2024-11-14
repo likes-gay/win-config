@@ -10,61 +10,61 @@ function UnPin-App { param(
 	}
 }
 function Get-LatestRelease-GitHub {
-    param (
-        [string]$RepositoryUrl,
-        [string]$ArchPattern = "",
-        [string]$FileExtension = ""
-    )
+	param (
+		[string]$RepositoryUrl,
+		[string]$ArchPattern = "",
+		[string]$FileExtension = ""
+	)
 
-    # Extract the owner and repo from the URL
-    if ($RepositoryUrl -match "https://github.com/([^/]+)/([^/]+)") {
-        $Owner = $matches[1]
-        $Repo = $matches[2]
-    } else {
-        Write-Error "Invalid GitHub repository URL."
-        return
-    }
+	# Extract the owner and repo from the URL
+	if ($RepositoryUrl -match "https://github.com/([^/]+)/([^/]+)") {
+		$Owner = $matches[1]
+		$Repo = $matches[2]
+	} else {
+		Write-Error "Invalid GitHub repository URL."
+		return
+	}
 
-    # Build the API URL for the latest release
-    $ApiUrl = "https://api.github.com/repos/$Owner/$Repo/releases/latest"
+	# Build the API URL for the latest release
+	$ApiUrl = "https://api.github.com/repos/$Owner/$Repo/releases/latest"
 
-    # Make the API request
-    try {
-        $Response = Invoke-RestMethod -Uri $ApiUrl -Headers @{"User-Agent"="PowerShell"}
-    } catch {
-        Write-Error "Failed to retrieve the latest release information."
-        return
-    }
+	# Make the API request
+	try {
+		$Response = Invoke-RestMethod -Uri $ApiUrl -Headers @{"User-Agent"="PowerShell"}
+	} catch {
+		Write-Error "Failed to retrieve the latest release information."
+		return
+	}
 
-    # Find the asset that matches the given pattern and file extension
-    $DownloadUrl = $null
-    $FileName = $null
-    foreach ($asset in $Response.assets) {
-        $Pattern = "$ArchPattern.*\.$FileExtension$"
-        if ($asset.browser_download_url -match $Pattern) {
-            $DownloadUrl = $asset.browser_download_url
-            $FileName = $asset.name
-            break
-        }
-    }
+	# Find the asset that matches the given pattern and file extension
+	$DownloadUrl = $null
+	$FileName = $null
+	foreach ($asset in $Response.assets) {
+		$Pattern = "$ArchPattern.*\.$FileExtension$"
+		if ($asset.browser_download_url -match $Pattern) {
+			$DownloadUrl = $asset.browser_download_url
+			$FileName = $asset.name
+			break
+		}
+	}
 
-    if (-not $DownloadUrl) {
-        Write-Error "No matching assets found in the latest release."
-        return
-    }
+	if (-not $DownloadUrl) {
+		Write-Error "No matching assets found in the latest release."
+		return
+	}
 
-    # Download the asset
-    try {
-        Invoke-WebRequest -Uri $DownloadUrl -OutFile $FileName
-        return $FileName
-    } catch {
-        Write-Error "Failed to download the latest release."
-    }
+	# Download the asset
+	try {
+		Invoke-WebRequest -Uri $DownloadUrl -OutFile $FileName
+		return $FileName
+	} catch {
+		Write-Error "Failed to download the latest release."
+	}
 }
 
 function Reload-Env {
 	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
- }
+}
 
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -100,10 +100,10 @@ Install-Module -Name Microsoft.PowerShell.Archive -Scope CurrentUser -Force
 if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
- 	Reload-Env
+	Reload-Env
 } else {
 	Write-Output "Skipping scoop install"
- }
+}
 
 scoop install git
 scoop bucket add extras
@@ -151,9 +151,9 @@ if ($configFile."Remove-task-view") {
 # Combine taskbar button settings
 if ($configFile."Combine-taskbar-buttons") {
 	$combineTaskbarButtonsMap = @{
-		"Always"    = 0
+		"Always"	= 0
 		"When-full" = 1
-		"Never"     = 2
+		"Never"	 = 2
 	}
 
 	$combineValue = $combineTaskbarButtonsMap[$configFile."Combine-taskbar-buttons"]
@@ -168,7 +168,7 @@ if ($configFile."Task-bar-search-mode") {
 	$searchboxTaskbarModeMap = @{
 		"Hidden" = 0
 		"Icon"   = 1
-		"Bar"    = 2
+		"Bar"	= 2
 	}
 
 	$searchboxValue = $searchboxTaskbarModeMap[$configFile."Task-bar-search-mode"]
