@@ -1,5 +1,12 @@
 # Win Config
+
 Quickly configure Windows with the **objectively** best settings
+
+## To add your own configuration
+
+Please create a [pull request](https://github.com/likes-gay/win-config/pulls), and create a JSON file in the [configs directory](https://github.com/likes-gay/win-config/tree/main/configs). The file's name should be your username.
+
+To see examples of what the file should be like, view other JSON files in there.
 
 # The Options
 
@@ -13,14 +20,17 @@ It works by finding their config based off of the computer's username.
 ## Single command to download and run the script
 
 ### Updated Powershell command
+
 ```powershell
 Invoke-WebRequest -Uri "https://github.com/likes-gay/win-config/releases/latest/download/likes-gay-config.exe" -OutFile "likes-gay-config.exe"; Start-Process -FilePath ".\likes-gay-config.exe" -Wait; Remove-Item -Path "likes-gay-config.exe"
 ```
 
 ### Legacy CMD command
+
 ```cmd
 curl -L -o likes-gay-config.exe https://github.com/likes-gay/win-config/releases/latest/download/likes-gay-config.exe && likes-gay-config.exe && del likes-gay-config.exe
 ```
 
 ## Using a Rubber Ducky (badusb) to run the script
+
 Upload the [`payload.dd`](https://github.com/likes-gay/win-config/blob/main/payload.dd) to your USB
