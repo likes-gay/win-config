@@ -2,9 +2,9 @@ REM This is a ducky script to quickly deploy the powershell (in exe format)
 DELAY 100
 GUI r
 DELAY 100
-STRING cmd
+STRING powershell
 ENTER
 DELAY 500
-STRING curl -L -o likes-gay-config.exe https://github.com/likes-gay/win-config/releases/latest/download/likes-gay-config.exe && likes-gay-config.exe && del likes-gay-config.exe
+STRING Invoke-WebRequest -Uri "https://github.com/likes-gay/win-config/releases/latest/download/likes-gay-config.exe" -OutFile "likes-gay-config.exe"; Start-Process -FilePath ".\likes-gay-config.exe" -Wait; Remove-Item -Path "likes-gay-config.exe"
 DELAY 100
 ENTER
