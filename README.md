@@ -22,7 +22,7 @@ It works by finding their config based off of the computer's username.
 ### Updated Powershell command
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/likes-gay/win-config/releases/latest/download/likes-gay-config.exe" -OutFile "likes-gay-config.exe"; Start-Process -FilePath ".\likes-gay-config.exe" -Wait; Remove-Item -Path "likes-gay-config.exe"
+iwr "https://github.com/likes-gay/win-config/releases/latest/download/main.ps1" -OutFile likes-gay-config\main.ps1; cd likes-gay-config; .\main.ps1; ri main.ps1
 ```
 
 ### Legacy CMD command

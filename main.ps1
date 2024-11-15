@@ -68,10 +68,6 @@ function Reload-Env {
 
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
-# Go into the config directory
-mkdir likes-gay-config
-cd likes-gay-config
-
 # Download user config file
 try {
 	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/$Env:UserName.json" -outfile "config.json"
