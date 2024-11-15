@@ -1,4 +1,4 @@
-#functions
+# Functions
 function UnPin-App { param(
 	[string]$appname
 )
@@ -66,11 +66,21 @@ function Reload-Env {
 	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
+# Code
 #---------------------------------------------------------------------------------------------------------------------------------------------
+
+if ((Split-Path -Leaf (pwd)) -ne "likes-gay-config") {
+	mkdir "likes-gay-config"
+	cd "likes-gay-config"
+	# $PSCommandPath is the path to the script that is running
+	if ($null -ne $PSCommandPath) {
+		Move-Item -Path $PSCommandPath -Destination "."
+	}
+}
 
 # Download user config file
 try {
-	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/$Env:UserName.json" -outfile "config.json"
+	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/configs/$Env:UserName.json" -outfile config.json
 } catch {
 	Write-Output "No config file detected, please create one in this folder: https://github.com/likes-gay/win-config/blob/main/configs/"
 	Exit
