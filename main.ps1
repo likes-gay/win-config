@@ -125,7 +125,7 @@ if ($configFile."Default-browser-chrome") {
 		Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
 		Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
 
-		$process = Start-Process -FilePath ".\MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+		$process = Start-Process -FilePath ".\MSEdgeRedirect.exe" -ArgumentList "/si",".\edge_redirect.ini" -PassThru
 		$process.WaitForExit()
 
 		Remove-Item -Path ".\edge_redirect.ini"
