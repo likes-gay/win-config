@@ -1,0 +1,32 @@
+	{
+	"Unpin-apps": true,
+	"Dark-mode": true,
+	"Remove-task-view": true,
+	"File-extentions": true,
+	"Remove-desktop-icons": true,
+	"Seconds-in-clock": false,
+	"12-hr-clock": true,
+	"clipboard-history": true,
+	"Print-scrn-snipping-tool": true,
+	"Set-scroll-lines": 5,
+	"Enable-live-caption-chrome": false,
+	"Default-browser-chrome": true,
+	"Setup-edge-redirect": true,
+	"Close-edge": true,
+	"Open-tabs": [
+		"https://github.com/login",
+		"https://ebay.co.uk/login"
+	],
+	"Funny-joe-biden": false,
+	"Accent-colour": "FD 86 5F 00 FC 75 51 00 F8 63 42 00 F7 63 0C 00 D0 41 22 00 9C 31 1A 00 79 27 14 00 00 99 BC 00", 
+	"Accent-colour-on-task-bar": true,
+	"Install-gh-desktop": false,
+	"Task-bar-search-mode": "Hidden",
+	"Launch-VScode": true,
+	"Install-UV": true,
+	"Install-terminal": true,
+	"Set-default-terminal": true,
+	"Install-JB-Toolbox": false,
+	"Install-Spotify": true,
+	"Install-Bitwarden": true
+}
