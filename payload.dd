@@ -5,6 +5,6 @@ DELAY 100
 STRING powershell
 ENTER
 DELAY 500
-STRING iwr "https://github.com/likes-gay/win-config/releases/latest/download/main.ps1" -OutFile likes-gay-config\main.ps1; cd likes-gay-config; .\main.ps1; ri main.ps1
+STRING iwr "https://github.com/likes-gay/win-config/releases/latest/download/main.ps1" -OutFile main.ps1; .\main.ps1
 DELAY 100
 ENTER
