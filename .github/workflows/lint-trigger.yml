@@ -1,0 +1,21 @@
+name: lint-trigger
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "*.ps1"
+  pull_request:
+    paths:
+      - "*.ps1"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/lint

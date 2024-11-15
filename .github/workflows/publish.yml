@@ -8,17 +8,25 @@ on:
       - "*.ps1"
 
 jobs:
-  # Add dependency on linter job
+  lint:
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/lint
+    
   ps1-to-exe:
     runs-on: windows-latest
-
+    needs: lint
+    
     permissions:
       contents: write
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: ./.github/lint
 
       - name: Install Ps2exe
         shell: powershell
