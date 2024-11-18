@@ -27,6 +27,7 @@
 	"Task-bar-search-mode": "Hidden",
 	"Launch-VScode": true,
 	"Install-UV": true,
+	"Campus-UV-PIP-Fix": true,
 	"Install-terminal": true,
 	"Set-default-terminal": true,
 	"Install-JB-Toolbox": true,
