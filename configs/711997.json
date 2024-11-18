@@ -1,0 +1,20 @@
+{
+	"Unpin-apps": true,
+	"Dark-mode": true,
+	"File-extentions": true,
+	"Remove-desktop-icons": true,
+	"clipboard-history": true,
+	"Print-scrn-snipping-tool": true,
+	"Set-scroll-lines": 7,
+	"Enable-live-caption-chrome": false,
+	"Default-browser-chrome": true,
+	"Setup-edge-redirect": true,
+	"Close-edge": true,
+	
+	"Funny-joe-biden": false,
+	"Accent-colour-on-task-bar": true,
+	"Install-gh-desktop": true,
+	"Install-UV": true,
+	"Install-terminal": true,
+	"Set-default-terminal": true
+}
