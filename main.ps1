@@ -258,6 +258,10 @@ if ($configFile."Close-edge") {
 	}
 }
 
+if ($configFile."Add-NuGet-source") {
+	dotnet nuget add source --name nuget.org https://api.nuget.org/v3/index.json
+}
+
 # Open useful tabs
 if ($configFile."Open-tabs") {
 	for (
