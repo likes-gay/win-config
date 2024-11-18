@@ -41,6 +41,7 @@ Below the type, there is an example of what it could be.
 | `Install-JB-Toolbox`         | Installs [JetBrains Toolbox App](https://www.jetbrains.com/toolbox-app/).                                                                                                                                 | Boolean<br>(`true`/`false`)                                                               |
 | `Install-Spotify`            | Installs Spotify App [Spotify](https://www.spotify.com/de-en/download/windows/)                                                                                                                           | Boolean<br>(`true`/`false`)                                                               |
 | `Install-Bitwarden`          | Installs Bitwarden App [Bitwarden](https://bitwarden.com/download/)                                                                                                                                       | Boolean<br>(`true`/`false`)                                                               |
+| `Install-Firefox`            | Installs Firefox App [Firefox](https://www.mozilla.org/en-US/firefox/)                                                                                                                                    | Boolean<br>(`true`/`false`)                                                               |
 
 ## How to find the `Accent-colour` value
 
