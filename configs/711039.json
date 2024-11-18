@@ -22,6 +22,7 @@
 	"Task-bar-search-mode": "Bar",
 	"Launch-VScode": true,
 	"Install-UV": true,
+	"Campus-UV-PIP-Fix": true,
 	"Combine-taskbar-buttons": "Never",
 	"Install-JB-Toolbox": true
 }
