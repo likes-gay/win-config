@@ -70,11 +70,11 @@ function Reload-Env {
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
 if ((Split-Path -Leaf (pwd)) -ne "likes-gay-config") {
-	mkdir "likes-gay-config"
+	mkdir -Force "likes-gay-config"
 	cd "likes-gay-config"
 	# $PSCommandPath is the path to the script that is running
 	if ($null -ne $PSCommandPath) {
-		Move-Item -Path $PSCommandPath -Destination "."
+		Move-Item -Force -Path $PSCommandPath -Destination "."
 	}
 }
 
