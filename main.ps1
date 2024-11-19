@@ -69,9 +69,9 @@ function Reload-Env {
 # Code
 #---------------------------------------------------------------------------------------------------------------------------------------------
 
-if ((Split-Path -Leaf (pwd)) -ne "likes-gay-config") {
+if ((Split-Path -Leaf (Get-Location)) -ne "likes-gay-config") {
 	mkdir -Force "likes-gay-config"
-	cd "likes-gay-config"
+	Set-Location "likes-gay-config"
 	# $PSCommandPath is the path to the script that is running
 	if ($null -ne $PSCommandPath) {
 		Move-Item -Force -Path $PSCommandPath -Destination "."
@@ -89,7 +89,6 @@ try {
 # Parse config file
 try {
 	$configFile = Get-Content ".\config.json" -Raw | ConvertFrom-Json
-	
 } catch {
 	Write-Error "Malformed config file"
 	Exit
@@ -117,7 +116,7 @@ scoop bucket add extras
 # Set default browser to Chrome
 if ($configFile."Default-browser-chrome") {
 	Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/default_browser.vbs" -OutFile .\default_browser.vbs
-	Invoke-Expression "Cscript.exe .\default_browser.vbs //nologo"
+	Cscript.exe .\default_browser.vbs //nologo
 	Remove-Item -Path ".\default_browser.vbs"
 
 	# Setup edge redirect - https://github.com/rcmaehl/MSEdgeRedirect/wiki/Deploying-MSEdgeRedirect
@@ -125,7 +124,7 @@ if ($configFile."Default-browser-chrome") {
 		Invoke-WebRequest "https://github.com/rcmaehl/MSEdgeRedirect/releases/latest/download/MSEdgeRedirect.exe" -OutFile .\MSEdgeRedirect.exe
 		Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/edge_redirect.ini" -OutFile .\edge_redirect.ini
 
-		$process = Start-Process -FilePath ".\MSEdgeRedirect.exe" -ArgumentList "/silentinstall",".\edge_redirect.ini" -PassThru
+		$process = Start-Process -FilePath ".\MSEdgeRedirect.exe" -ArgumentList "/si",".\edge_redirect.ini" -PassThru
 		$process.WaitForExit()
 
 		Remove-Item -Path ".\edge_redirect.ini"
@@ -284,8 +283,6 @@ if ($configFile."Accent-colour") {
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Accent" -Name "AccentPalette" -Value ([byte[]]$ColorValue)
 }
 
-	$ColorValue = $configFile."Accent-colour".Split(" ") | ForEach-Object { "0x$_" }
-
 if ($configFile."Accent-colour-on-task-bar") {
 	Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name "ColorPrevalence" -Value 1
 }
@@ -302,7 +299,6 @@ if ($configFile."Install-UV") {
 	if ($configFile."Campus-UV-PIP-Fix") {
  		New-Item -ItemType Directory -Force -Path "$Env:APPDATA\uv"
 		Invoke-WebRequest "https://github.com/likes-gay/win-config/raw/refs/heads/main/uv.toml" -OutFile "$Env:APPDATA\uv\uv.toml"
-  		
   	}
 }
 
@@ -323,7 +319,7 @@ if ($configFile."Install-terminal") {
 }
 
 if ($configFile."Install-JB-Toolbox") {
-	winget install -e --id JetBrains.Toolbox
+	winget install --accept-source-agreements -e --id JetBrains.Toolbox
 }
 
 if ($configFile."Install-Spotify") {

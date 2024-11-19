@@ -19,7 +19,7 @@ It works by finding their config based off of the computer's username.
 
 ## Single command to download and run the script
 
-### Updated Powershell command
+### Updated PowerShell command
 
 ```powershell
 iwr "https://github.com/likes-gay/win-config/releases/latest/download/main.ps1" -OutFile main.ps1; .\main.ps1

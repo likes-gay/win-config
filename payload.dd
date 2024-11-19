@@ -1,4 +1,4 @@
-REM This is a ducky script to quickly deploy the powershell (in exe format)
+REM This is a Ducky script to quickly deploy the PowerShell file and run it
 DELAY 100
 GUI r
 DELAY 100
