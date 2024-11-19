@@ -293,11 +293,7 @@ if ($configFile."Accent-colour-on-task-bar") {
 Stop-Process -processName: Explorer # Restart explorer to apply changes that require it
 
 if ($configFile."Install-gh-desktop") {
-	Invoke-WebRequest "https://central.github.com/deployments/desktop/desktop/latest/win32" -OutFile ".\GitHubDesktopSetup-x64.exe"
-	Start-Process ".\GitHubDesktopSetup-x64.exe"
-
-# TODO: delete the file after opening it, but it can't be deleted straight away
-#Remove-Item -Path ".\GitHubDesktopSetup-x64.exe"
+	scoop install extras/github
 }
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
