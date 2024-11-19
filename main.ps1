@@ -1,9 +1,9 @@
 # Functions
-function UnPin-App { param(
+function Remove-TaskbarPin { param(
 	[string]$appname
 )
 	try {
-		((New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace("&", "") -match "Unpin from taskbar"} | %{$_.DoIt()}
+		((New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items() | Where-Object {$_.Name -eq $appname}).Verbs() | Where-Object {$_.Name.replace("&", "") -match "Unpin from taskbar"} | ForEach-Object {$_.DoIt()}
 		return "App '$appname' unpinned from Taskbar"
 	} catch {
 		Write-Error "Error Unpinning App! (Is '$appname' correct?)"
@@ -12,8 +12,8 @@ function UnPin-App { param(
 function Get-LatestRelease-GitHub {
 	param (
 		[string]$RepositoryUrl,
-		[string]$ArchPattern = "",
-		[string]$FileExtension = ""
+		[string]$ArchPattern,
+		[string]$FileExtension
 	)
 
 	# Extract the owner and repo from the URL
@@ -62,7 +62,7 @@ function Get-LatestRelease-GitHub {
 	}
 }
 
-function Reload-Env {
+function Update-Env {
 	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
@@ -105,7 +105,7 @@ Install-Module -Name Microsoft.PowerShell.Archive -Scope CurrentUser -Force
 if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-	Reload-Env
+	Update-Env
 } else {
 	Write-Output "Skipping scoop install"
 }
@@ -133,10 +133,10 @@ if ($configFile."Default-browser-chrome") {
 }
 
 # Unpin unused apps from the taskbar
-if ($configFile."Unpin-apps") {
-	UnPin-App "Microsoft Edge"
-	UnPin-App "Microsoft Store"
-	UnPin-App "Mail"
+if ($configFile."Remove-TaskbarPins") {
+	Remove-TaskbarPin "Microsoft Edge"
+	Remove-TaskbarPin "Microsoft Store"
+	Remove-TaskbarPin "Mail"
 }
 
 # Turns on dark mode for apps and system
