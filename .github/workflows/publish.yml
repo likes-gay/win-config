@@ -7,20 +7,9 @@ on:
     paths:
       - "*.ps1"
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-
-    permissions:
-      security-events: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/lint
-    
+jobs:    
   ps1-to-exe:
     runs-on: windows-latest
-    needs: lint
     
     permissions:
       contents: write

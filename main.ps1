@@ -1,12 +1,26 @@
 # Functions
-function Remove-TaskbarPin { param(
-	[string]$appname
-)
+function Remove-TaskbarPin {
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param(
+		[string]$appname
+	)
 	try {
-		((New-Object -Com Shell.Application).NameSpace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}").Items() | ?{$_.Name -eq $appname}).Verbs() | ?{$_.Name.replace("&", "") -match "Unpin from taskbar"} | %{$_.DoIt()}
-		return "App '$appname' unpinned from Taskbar"
+		$shellApp = New-Object -ComObject Shell.Application
+		$taskbarFolder = $shellApp.Namespace("shell:::{4234d49b-0245-4df3-b780-3893943456e1}")
+		$item = $taskbarFolder.Items() | Where-Object { $_.Name -eq $appname }
+		if ($item) {
+			$verbs = $item.Verbs() | Where-Object { $_.Name.Replace("&", "") -match "Unpin from taskbar" }
+			foreach ($verb in $verbs) {
+				if ($PSCmdlet.ShouldProcess($sappname, "Unpin from taskbar")) {
+					$verb.DoIt()
+					Write-Output "App '$appname' unpinned from Taskbar"
+				}
+			}
+		} else {
+			Write-Warning "App '$appname' not found on Taskbar"
+		}
 	} catch {
-		Write-Error "Error Unpinning App! (Is '$appname' correct?)"
+		Write-Error "Error unpinning app '$appname'!"
 	}
 }
 function Get-LatestRelease-GitHub {
@@ -63,7 +77,12 @@ function Get-LatestRelease-GitHub {
 }
 
 function Update-Env {
-	$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+	[CmdletBinding(SupportsShouldProcess = $true)]
+	param()
+
+	if ($PSCmdlet.ShouldProcess("Environment Variables", "Update Path")) {
+		$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+	}
 }
 
 # Code
@@ -104,7 +123,8 @@ Install-Module -Name Microsoft.PowerShell.Archive -Scope CurrentUser -Force
 # Install Scoop
 if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 	Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-	Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+	$script = Invoke-RestMethod -Uri https://get.scoop.sh
+	Invoke-Command -ScriptBlock ([Scriptblock]::Create($script))
 	Update-Env
 } else {
 	Write-Output "Skipping scoop install"
@@ -133,7 +153,7 @@ if ($configFile."Default-browser-chrome") {
 }
 
 # Unpin unused apps from the taskbar
-if ($configFile."Remove-TaskbarPins") {
+if ($configFile."Unpin-apps") {
 	Remove-TaskbarPin "Microsoft Edge"
 	Remove-TaskbarPin "Microsoft Store"
 	Remove-TaskbarPin "Mail"

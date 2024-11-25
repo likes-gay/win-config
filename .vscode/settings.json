@@ -1,0 +1,4 @@
+{
+	"powershell.scriptAnalysis.settingsPath": "linter-settings.psd1",
+	"powershell.scriptAnalysis.enable": true
+}

@@ -34,3 +34,29 @@ curl -L -o likes-gay-config.exe https://github.com/likes-gay/win-config/releases
 ## Using a Rubber Ducky (badusb) to run the script
 
 Upload the [`payload.dd`](https://github.com/likes-gay/win-config/blob/main/payload.dd) to your USB
+
+## Linter with PSScriptAnalyzer
+
+We use [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer) with all the rules enabled.
+
+### Install PSScriptAnalyzer
+
+Windows, without admin:
+
+```powershell
+Install-Module -Name PSScriptAnalyzer -Scope CurrentUser -Force
+```
+
+Linux:
+
+```bash
+sudo apt install -y powershell
+pwsh
+Install-Module -Name PSScriptAnalyzer -Force
+```
+
+### Run the linter
+
+```powershell
+Invoke-ScriptAnalyzer -Path .\main.ps1 -Settings .\linter-settings.psd1
+```
