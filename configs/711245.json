@@ -25,5 +25,6 @@
 	"Campus-UV-PIP-Fix": true,
 	"Install-gh-desktop": true,
 	"Install-Spotify": true,
-	"Add-NuGet-source": true
+	"Add-NuGet-source": true,
+	"Install-PowerToys": true
 }
