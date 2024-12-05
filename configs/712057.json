@@ -32,5 +32,6 @@
 	"Set-default-terminal": true,
 	"Install-JB-Toolbox": true,
 	"Install-Spotify": true,
-	"Install-Bitwarden": true
+	"Install-Bitwarden": true,
+	"Install-PowerToys": true,
 }
