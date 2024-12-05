@@ -354,6 +354,10 @@ if ($configFile."Install-Firefox") {
 	scoop install extras/firefox
 }
 
+if($configFile."Install-PowerToys"){
+	winget install --id Microsoft.PowerToys --source winget
+}
+
 # Easter egg ;)
 if ($configFile."Funny-joe-biden") {
 	$images = (Invoke-WebRequest "https://raw.githubusercontent.com/likes-gay/win-config/main/photos.txt").Content.Split([Environment]::NewLine)
