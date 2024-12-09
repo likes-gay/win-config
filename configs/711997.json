@@ -10,11 +10,11 @@
 	"Default-browser-chrome": true,
 	"Setup-edge-redirect": true,
 	"Close-edge": true,
-	
 	"Funny-joe-biden": false,
 	"Accent-colour-on-task-bar": true,
 	"Install-gh-desktop": true,
 	"Install-UV": true,
 	"Install-terminal": true,
-	"Set-default-terminal": true
+	"Set-default-terminal": true,
+	"Add-NuGet-source": true
 }
