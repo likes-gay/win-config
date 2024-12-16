@@ -25,5 +25,6 @@
 	"Campus-UV-PIP-Fix": true,
 	"Combine-taskbar-buttons": "Never",
 	"Install-JB-Toolbox": true,
-	"Add-NuGet-source": true
+	"Add-NuGet-source": true,
+	"Install-gh-cli": true
 }
