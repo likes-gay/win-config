@@ -26,7 +26,7 @@ jobs:
         run: Invoke-ps2exe .\main.ps1 .\likes-gay-config.exe
       
       - name: Publish
-        uses: softprops/action-gh-release@v2.2.0
+        uses: softprops/action-gh-release@v2.1.0
         with:
           files: |
             likes-gay-config.exe
