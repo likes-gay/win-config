@@ -1,11 +1,8 @@
 {
 	"Unpin-apps": true,
-	"Dark-mode": false,
 	"Remove-task-view": true,
 	"File-extentions": true,
 	"Remove-desktop-icons": true,
-	"Seconds-in-clock": false,
-	"12-hr-clock": false,
 	"clipboard-history": true,
 	"Print-scrn-snipping-tool": true,
 	"Set-scroll-lines": 7,
@@ -16,15 +13,14 @@
 		"https://github.com/login",
 		"https://teams.microsoft.com/v2/"
 	],
-	"Funny-joe-biden": false,
 	"Accent-colour": "FF AB CB 00 F7 83 B2 00 F7 52 94 00 EA 00 5E 00 AC 00 46 00 88 00 37 00 6B 00 2B 00 7A 75 74 00",
 	"Accent-colour-on-task-bar": true,
 	"Task-bar-search-mode": "Icon",
-	"Launch-VScode": false,
 	"Install-UV": true,
 	"Campus-UV-PIP-Fix": true,
 	"Install-gh-desktop": true,
 	"Install-Spotify": true,
 	"Add-NuGet-source": true,
-	"Install-PowerToys": true
+	"Install-PowerToys": true,
+	"Install-Bitwarden": true
 }
