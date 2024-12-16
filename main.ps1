@@ -313,6 +313,10 @@ if ($configFile."Install-gh-desktop") {
 	scoop install extras/github
 }
 
+if ($configFile."Install-gh-cli") {
+	scoop install gh
+}
+
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
 	winget install --id=astral-sh.uv -e --accept-source-agreements --source winget
