@@ -30,5 +30,6 @@
 	"Install-JB-Toolbox": false,
 	"Install-Spotify": true,
 	"Install-Bitwarden": true,
-	"Install-Firefox": true
+	"Install-Firefox": true,
+	"Add-NuGet-source": true
 }
