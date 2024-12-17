@@ -26,5 +26,6 @@
 	"Combine-taskbar-buttons": "Never",
 	"Install-JB-Toolbox": true,
 	"Add-NuGet-source": true,
+	"Install-Firefox": true,
 	"Install-gh-cli": true
 }
