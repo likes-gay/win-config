@@ -22,5 +22,6 @@
 	"Install-Spotify": true,
 	"Add-NuGet-source": true,
 	"Install-PowerToys": true,
-	"Install-Bitwarden": true
+	"Install-Bitwarden": true,
+	"Install-Firefox": true
 }
