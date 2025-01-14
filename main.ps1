@@ -358,8 +358,12 @@ if ($configFile."Install-Firefox") {
 	scoop install extras/firefox
 }
 
-if($configFile."Install-PowerToys"){
+if ($configFile."Install-PowerToys") {
 	winget install --id Microsoft.PowerToys --source winget
+}
+
+if ($configFile."Install-Responsively") {
+	winget install ResponsivelyApp
 }
 
 # Easter egg ;)
