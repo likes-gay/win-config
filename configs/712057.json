@@ -18,6 +18,7 @@
 		"https://github.com/login",
 		"https://office.com",
 		"https://g.co/finance/RPI:LON",
+		"https://www.google.com/finance/quote/GRG:LON",
 		"https://qualifications.pearson.com/content/dam/pdf/TLevels/digital/2020/specification-and-sample-assessments/t-level-tq-in-digital-production-design-and-development-spec-2024.pdf"
 	],
 	"Funny-joe-biden": false,
@@ -35,5 +36,6 @@
 	"Install-Spotify": true,
 	"Install-Bitwarden": true,
 	"Install-PowerToys": true,
-	"Add-NuGet-source": true
+	"Add-NuGet-source": true,
+	"Install-Responsively": true
 }
