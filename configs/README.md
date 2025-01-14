@@ -46,6 +46,8 @@ Below the type, there is an example of what it could be.
 | `Add-NuGet-source`           | Adds NuGet package index [Stack Overflow](https://stackoverflow.com/a/67937895/23200733)                                                                                                                  | Boolean<br>(`true`/`false`)                                                               |
 | `Install-PowerToys`          | Installs Windows PowerToys [PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/install)                                                                                                       | Boolean<br>(`true`/`false`)                                                               |
 | `Install-gh-cli`             | Installs the [GitHub CLI](https://cli.github.com/)                                                                                                                                                        | Boolean<br>(`true`/`false`)                                                               |
+| `Install-Responsively`       | Installs [Responsively](https://responsively.app/)                                                                                                                                                        | Boolean<br>(`true`/`false`)                                                               |
+
 
 ## How to find the `Accent-colour` value
 
