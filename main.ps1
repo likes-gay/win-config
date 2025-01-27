@@ -363,7 +363,7 @@ if ($configFile."Install-PowerToys") {
 }
 
 if ($configFile."Install-Responsively") {
-	winget install ResponsivelyApp
+	scoop install responsively
 }
 
 # Easter egg ;)
