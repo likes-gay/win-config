@@ -1,0 +1,42 @@
+{
+	"Unpin-apps": true,
+	"Dark-mode": false,
+	"Remove-task-view": true,
+	"File-extentions": true,
+	"Remove-desktop-icons": false,
+	"Seconds-in-clock": true,
+	"12-hr-clock": true,
+	"clipboard-history": true,
+	"Print-scrn-snipping-tool": false,
+	"Set-scroll-lines": 6,
+	"Enable-live-caption-chrome": false,
+	"Default-browser-chrome": true,
+	"Setup-edge-redirect": true,
+	"Accent-colour": "D6 E7 FF FF B2 D3 FF FF 99 C5 FE FF 7F B6 FF FF 65 A8 FE FF 4C 99 FF FF 28 85 FE FF 88 17 98 00",
+	"Accent-colour-on-task-bar": false,
+	"Task-bar-search-mode": "Hidden",
+	"Combine-taskbar-buttons": "Always",
+	"Install-UV": false,
+	"Campus-UV-PIP-Fix": false,
+	"Install-gh-desktop": true,
+	"Install-gh-cli": true,
+	"Launch-VScode": true,
+	"Close-edge": true,
+	"Open-tabs": [
+		"https://m365.cloud.microsoft",
+		"https://github.com/login",
+		"https://search.deuo.one"
+	],
+	"Funny-joe-biden": false,
+	"Install-terminal": true,
+	"Set-default-terminal": true,
+	"Install-JB-Toolbox": true,
+	"Install-Spotify": true,
+	"Install-Bitwarden": false,
+	"Install-Firefox": true,
+	"Add-NuGet-source": true,
+	"Install-PowerToys": true,
+	"Install-Responsively": false
+}
+
+
