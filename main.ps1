@@ -132,6 +132,7 @@ if (!(Get-Command "scoop" -errorAction SilentlyContinue)){
 
 scoop install git
 scoop bucket add extras
+scoop bucket add main
 
 # Set default browser to Chrome
 if ($configFile."Default-browser-chrome") {
@@ -343,7 +344,7 @@ if ($configFile."Install-terminal") {
 }
 
 if ($configFile."Install-JB-Toolbox") {
-	winget install --accept-source-agreements -e --id JetBrains.Toolbox
+	scoop install extras/jetbrains-toolbox
 }
 
 if ($configFile."Install-Spotify") {
@@ -359,12 +360,18 @@ if ($configFile."Install-Firefox") {
 }
 
 if ($configFile."Install-PowerToys") {
-	winget install --id Microsoft.PowerToys --source winget
+	scoop install extras/powertoys
 }
 
 if ($configFile."Install-Responsively") {
 	scoop install responsively
 }
+
+if ($configFile."Install-pnpm") {
+	scoop install main/pnpm
+}
+
+
 
 # Easter egg ;)
 if ($configFile."Funny-joe-biden") {
