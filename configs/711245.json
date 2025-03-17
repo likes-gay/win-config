@@ -23,5 +23,6 @@
 	"Add-NuGet-source": true,
 	"Install-PowerToys": true,
 	"Install-Bitwarden": true,
-	"Install-Firefox": true
+	"Install-Firefox": true,
+	"Install-pnpm": true
 }
