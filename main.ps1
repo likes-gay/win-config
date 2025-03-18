@@ -320,7 +320,7 @@ if ($configFile."Install-gh-cli") {
 
 # Install UV (Python PIP replacement https://github.com/astral-sh/uv)
 if ($configFile."Install-UV") {
-	powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex
+	powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 	if ($configFile."Campus-UV-PIP-Fix") {
  		New-Item -ItemType Directory -Force -Path "$Env:APPDATA\uv"
 		Invoke-WebRequest "https://github.com/likes-gay/win-config/raw/refs/heads/main/uv.toml" -OutFile "$Env:APPDATA\uv\uv.toml"
