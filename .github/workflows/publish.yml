@@ -1,4 +1,4 @@
-name: publish-exe
+name: publish-ps1
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
       - "*.ps1"
 
 jobs:    
-  ps1-to-exe:
+  publish-ps1:
     runs-on: windows-latest
     
     permissions:
@@ -17,19 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Ps2exe
-        shell: powershell
-        run: Install-Module ps2exe -force
-
-      - name: Compile
-        shell: powershell
-        run: Invoke-ps2exe .\main.ps1 .\likes-gay-config.exe
-      
       - name: Publish
         uses: softprops/action-gh-release@v2.2.1
         with:
           files: |
-            likes-gay-config.exe
             main.ps1
           tag_name: v${{ github.run_number }}
           prerelease: false
