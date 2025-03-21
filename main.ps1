@@ -368,7 +368,7 @@ if ($configFile."Install-Responsively") {
 }
 
 if ($configFile."Install-pnpm") {
-	scoop install main/pnpm
+	Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression
 }
 
 
